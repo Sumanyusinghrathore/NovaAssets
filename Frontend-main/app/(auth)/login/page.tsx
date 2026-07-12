@@ -85,9 +85,6 @@ export default function LoginPage() {
 
           <div className="relative z-10 flex items-center justify-between">
             <AssetFlowLogo />
-            <Link href="/signup" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-[#5b3df5]/30 hover:text-[#5b3df5]">
-              Company setup
-            </Link>
           </div>
 
           <div className="relative z-10 mt-12 grid gap-8">
@@ -265,9 +262,6 @@ export default function LoginPage() {
                 <div className="mt-3 grid gap-2">
                   <Link href="/" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
                     Public company page
-                  </Link>
-                  <Link href="/signup" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                    Company setup
                   </Link>
                 </div>
               </div>

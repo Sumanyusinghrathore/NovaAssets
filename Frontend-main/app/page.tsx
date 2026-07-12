@@ -22,9 +22,6 @@ export default function HomePage() {
             <a href="#contact" className="transition hover:text-[#5b3df5]">Contact</a>
           </nav>
           <div className="flex items-center gap-3">
-            <Link href="/signup" className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-[#5b3df5]/30 hover:text-[#5b3df5] sm:inline-flex">
-              Company setup
-            </Link>
             <Link href="/login" className="inline-flex rounded-full bg-[#5b3df5] px-4 py-2 text-sm font-bold text-white shadow-[0_14px_28px_rgba(91,61,245,0.22)] transition hover:brightness-110">
               Login
             </Link>
@@ -52,9 +49,6 @@ export default function HomePage() {
               <Link href="/login" className="inline-flex items-center gap-2 rounded-2xl bg-[#5b3df5] px-5 py-3.5 text-sm font-bold text-white shadow-[0_18px_36px_rgba(91,61,245,0.25)] transition hover:brightness-110">
                 Enter workspace
                 <IconArrowUpRight size={16} />
-              </Link>
-              <Link href="/signup" className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm font-bold text-slate-700 shadow-sm transition hover:border-[#5b3df5]/30 hover:text-[#5b3df5]">
-                Setup company
               </Link>
             </div>
 
