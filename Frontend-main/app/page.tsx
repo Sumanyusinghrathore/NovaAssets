@@ -1001,37 +1001,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Column 1 — SOLUTIONS */}
-            <div>
-              <h3 className="af-foot-col-title">Solutions</h3>
-              <ul className="af-foot-links-list">
-                {FOOTER_LINKS.solutions.map((item) => (
-                  <li key={item}><a href="#">{item}</a></li>
-                ))}
-              </ul>
-            </div>
+            
+            
 
-            {/* Column 2 — VERTICALS */}
-            <div>
-              <h3 className="af-foot-col-title">Verticals</h3>
-              <ul className="af-foot-links-list">
-                {FOOTER_LINKS.verticals.map((item) => (
-                  <li key={item}><a href="#">{item}</a></li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Column 3 — QUICK LINKS */}
-            <div>
-              <h3 className="af-foot-col-title">Quick Links</h3>
-              <ul className="af-foot-links-list">
-                {FOOTER_LINKS.quickLinks.map((item) => (
-                  <li key={item.label}><a href={item.href}>{item.label}</a></li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Column 4 — RESOURCES */}
             <div>
               <h3 className="af-foot-col-title">Resources</h3>
               <ul className="af-foot-links-list">
@@ -1040,6 +1012,11 @@ export default function HomePage() {
                 ))}
               </ul>
             </div>
+
+            
+
+            {/* Column 4 — RESOURCES */}
+            
 
             {/* Column 5 — CONTACT US / FOLLOW US */}
             <div>
