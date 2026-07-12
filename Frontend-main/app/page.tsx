@@ -636,26 +636,26 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#f8fafc] text-slate-900">
-      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-[rgba(248,250,252,0.82)] backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <AssetFlowLogo />
-          <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex">
-            <a href="#platform" className="transition hover:text-[#5b3df5]">Platform</a>
-            <a href="#roles" className="transition hover:text-[#5b3df5]">Roles</a>
-            <a href="#security" className="transition hover:text-[#5b3df5]">Security</a>
-            <a href="#contact" className="transition hover:text-[#5b3df5]">Contact</a>
-          </nav>
-          <div className="flex items-center gap-3">
-            <Link href="/signup" className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-[#5b3df5]/30 hover:text-[#5b3df5] sm:inline-flex">
-              Company setup
-            </Link>
-            <Link href="/login" className="inline-flex rounded-full bg-[#5b3df5] px-4 py-2 text-sm font-bold text-white shadow-[0_14px_28px_rgba(91,61,245,0.22)] transition hover:brightness-110">
-              Login
-            </Link>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: S }} />
+
+      <div id="top" className="af-plat" ref={pageRef}>
+        {/* ── NAV ───────────────────────────────────────────────── */}
+        <header className="af-nav">
+          <div className="af-nav-inner">
+            <Link href="/"><AssetFlowLogo size={36} /></Link>
+            <nav className="af-nav-links">
+              <a href="#top"      className="af-nav-link">Home</a>
+              <a href="#features" className="af-nav-link">Features</a>
+              <a href="#roles"    className="af-nav-link">Roles</a>
+              <a href="#contact"  className="af-nav-link">Contact</a>
+            </nav>
+            <div className="af-nav-actions">
+              <Link href="/signup" className="af-btn-sm-ghost">Company setup</Link>
+              <Link href="/login"  className="af-btn-sm-primary">Login</Link>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
         {/* ── HERO ──────────────────────────────────────────────── */}
         <section className="af-hero">
@@ -677,15 +677,14 @@ export default function HomePage() {
                 Founder, Admin, Department Head, Asset Manager, and Employee.
               </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/login" className="inline-flex items-center gap-2 rounded-2xl bg-[#5b3df5] px-5 py-3.5 text-sm font-bold text-white shadow-[0_18px_36px_rgba(91,61,245,0.25)] transition hover:brightness-110">
-                Enter workspace
-                <IconArrowUpRight size={16} />
-              </Link>
-              <Link href="/signup" className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm font-bold text-slate-700 shadow-sm transition hover:border-[#5b3df5]/30 hover:text-[#5b3df5]">
-                Setup company
-              </Link>
-            </div>
+              <div className="af-hero-actions">
+                <Link href="/login" className="af-btn-primary">
+                  Enter workspace <IconArrowUpRight size={16} />
+                </Link>
+                <Link href="/signup" className="af-btn-outline">
+                  Setup company
+                </Link>
+              </div>
 
               <div className="af-hero-kpis">
                 {[
