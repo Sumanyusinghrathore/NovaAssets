@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -10,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AssetFlowLogo from "@/app/components/assetflow/AssetFlowLogo";
 import { ROLE_LABELS, ROLE_HOME, type AssetFlowRole } from "@/app/lib/assetflow-roles";
 import { apiLogin, apiSendOtp, apiVerifyOtp } from "@/app/lib/api";
-import { IconEye, IconEyeOff, IconLock, IconMail, IconPhone, IconSparkles } from "@/app/components/icons/Icons";
+import { IconEye, IconEyeOff, IconLock, IconMail } from "@/app/components/icons/Icons";
 
 const loginSchema = z.object({
   method: z.enum(["password", "otp"]),
@@ -74,7 +73,7 @@ export default function LoginPage() {
   const [otpSent, setOtpSent] = useState(false);
   const [otpChallengeId, setOtpChallengeId] = useState("");
   const [otpPreview, setOtpPreview] = useState("");
-  const [companyHint, setCompanyHint] = useState("ODDO Technologies Pvt. Ltd.");
+  const [companyHint, setCompanyHint] = useState("NovaAssets Pvt. Ltd.");
   const [statusMessage, setStatusMessage] = useState("");
   const [demoHint, setDemoHint] = useState<typeof DEMO_ACCOUNTS[number] | null>(DEMO_ACCOUNTS[1]);
 
@@ -183,111 +182,46 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f6f7fb] text-slate-900">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(91,61,245,0.16),_transparent_32%),radial-gradient(circle_at_85%_15%,_rgba(14,165,233,0.12),_transparent_28%),radial-gradient(circle_at_70%_85%,_rgba(22,163,74,0.08),_transparent_24%),linear-gradient(180deg,_#f8fafc_0%,_#eef2ff_100%)]" />
-      <div className="mx-auto grid min-h-screen w-full max-w-7xl gap-6 px-4 py-5 sm:px-6 lg:grid-cols-[1fr_0.92fr] lg:px-8 lg:py-6">
-        <section className="relative overflow-hidden rounded-[2.4rem] border border-white/70 bg-white/70 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-8 lg:p-10">
-          <div className="absolute -left-20 top-10 h-64 w-64 rounded-full bg-[#5b3df5]/10 blur-3xl" />
-          <div className="absolute bottom-4 right-6 h-52 w-52 rounded-full bg-[#16a34a]/10 blur-3xl" />
-
-          <div className="relative z-10 flex items-center justify-between gap-4">
+    <main className="min-h-screen bg-[#f6f7fb] p-3 text-slate-900 sm:p-5">
+      <div className="mx-auto grid min-h-[calc(100vh-1.5rem)] max-w-[1520px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_30px_90px_rgba(15,23,42,0.12)] lg:grid-cols-[1.05fr_0.95fr] sm:min-h-[calc(100vh-2.5rem)]">
+        <section className="relative overflow-hidden bg-[radial-gradient(circle_at_8%_5%,_rgba(255,255,255,0.94),_transparent_38%),radial-gradient(circle_at_80%_28%,_rgba(196,181,253,0.72),_transparent_43%),linear-gradient(135deg,_#ede9fe_0%,_#eef6ff_56%,_#dbeafe_100%)] p-7 sm:p-10 lg:p-14">
+          <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full border-[28px] border-white/45" />
+          <div className="absolute -right-20 bottom-12 h-64 w-64 rounded-full bg-[#5b3df5]/15 blur-3xl" />
+          <div className="relative flex h-full flex-col">
             <AssetFlowLogo />
-            <Link href="/signup" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-[#5b3df5]/30 hover:text-[#5b3df5]">
-              Company setup
-            </Link>
-          </div>
-
-          <div className="relative z-10 mt-12 max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#5b3df5]/15 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#5b3df5] shadow-sm">
-              <IconSparkles size={14} />
-              ODDO access control
-            </div>
-            <h1 className="mt-5 max-w-xl text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-              Secure access for every role in one polished workspace.
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-              Login works with email and password, or OTP for temporary access. Use the demo emails below to see how the workspace routes by role.
-            </p>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              {[
-                { label: "Login style", value: "Email first" },
-                { label: "Routing", value: "Auto role" },
-                { label: "Access", value: "Password + OTP" },
-              ].map((item) => (
-                <div key={item.label} className="rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-sm">
-                  <div className="text-sm font-medium text-slate-500">{item.label}</div>
-                  <div className="mt-2 text-xl font-black tracking-tight text-slate-900">{item.value}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <FeatureChip title="Roles" desc="Founder, Manager, TL, IT Service, Employee." />
-              <FeatureChip title="Manager flow" desc="Manager decides employee access." />
-            </div>
-
-            <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-white/85 p-4 shadow-sm">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Demo accounts</div>
-                  <div className="mt-1 text-sm text-slate-600">Click any card to autofill the email.</div>
-                </div>
-                <span className="rounded-full bg-[#eef2ff] px-3 py-1 text-xs font-semibold text-[#5b3df5]">Demo only</span>
-              </div>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {DEMO_ACCOUNTS.map((account) => (
-                  <button
-                    key={account.email}
-                    type="button"
-                    onClick={() => {
-                      setValue("identifier", account.email, { shouldDirty: true, shouldValidate: true });
-                      setValue("role", account.role, { shouldDirty: true, shouldValidate: true });
-                      setDemoHint(account);
-                      setStatusMessage("");
-                    }}
-                    className={`rounded-[1rem] border p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md ${
-                      demoHint?.email === account.email ? "border-[#5b3df5]/30 bg-[#5b3df5]/6" : "border-slate-200 bg-white"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="text-sm font-bold text-slate-900">{account.title}</div>
-                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                        {account.title === "Manager" ? "control" : account.title === "TL" ? "lead" : account.title === "IT Service" ? "support" : "demo"}
-                      </span>
-                    </div>
-                    <div className="mt-1 break-all text-sm text-slate-600">{account.email}</div>
-                    <div className="mt-1 text-xs font-medium text-slate-500">{account.note}</div>
-                  </button>
-                ))}
+            <div className="my-auto max-w-xl py-16 lg:py-24">
+              <div className="text-xs font-bold uppercase tracking-[0.3em] text-[#5b3df5]">Asset operations, simplified</div>
+              <h1 className="mt-5 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                A smarter way to manage every asset.
+              </h1>
+              <p className="mt-6 text-base leading-8 text-slate-600 sm:text-lg">
+                Built for teams tracking equipment, allocations, maintenance, and approvals in one reliable workspace.
+              </p>
+              <div className="mt-8 divide-y divide-slate-300/70 border-y border-slate-300/70 text-base leading-7 text-slate-700">
+                <p className="py-4">See where every asset is, who has it, and what needs attention.</p>
+                <p className="py-4">Give every team the access and visibility they need to move faster.</p>
+                <p className="py-4">Keep maintenance, bookings, and audit trails organized from day one.</p>
               </div>
             </div>
+            <p className="text-sm font-medium text-slate-500">NovaAssets · Enterprise asset management</p>
           </div>
         </section>
 
-        <section className="relative flex items-center justify-center overflow-hidden rounded-[2.4rem] border border-[#101b3d]/15 bg-[#0d1328] px-4 py-6 text-white shadow-[0_30px_100px_rgba(15,23,42,0.36)] sm:px-6 lg:px-8">
-          <div className="absolute -left-8 top-8 h-40 w-40 rounded-full bg-[#5b3df5]/30 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#14b8a6]/15 blur-3xl" />
-          <div className="relative w-full max-w-md rounded-[2rem] border border-white/10 bg-white/6 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.5)] backdrop-blur-xl sm:p-7">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.32em] text-white/45">Welcome back</div>
-                <h2 className="mt-2 text-2xl font-black tracking-tight">Sign in to ODDO</h2>
-                <p className="mt-2 max-w-sm text-sm leading-6 text-white/60">
-                  Use the demo email and password below, or switch to OTP to preview the temporary code.
-                </p>
-              </div>
-              <div className="rounded-2xl bg-white/10 p-3">
-                <AssetFlowLogo size={40} compact />
-              </div>
+        <section className="flex items-center justify-center px-6 py-12 sm:px-10 lg:px-16">
+          <div className="w-full max-w-md">
+            <div className="mb-9 flex justify-center"><AssetFlowLogo size={52} /></div>
+            <div className="text-center">
+              <div className="text-xs font-bold uppercase tracking-[0.3em] text-[#5b3df5]">Welcome back</div>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Sign in to NovaAssets</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-500">Use your account credentials or a one-time password to continue.</p>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/6 p-1">
+            <div className="mt-8 grid grid-cols-2 gap-1 rounded-xl border border-slate-200 bg-slate-50 p-1">
               <button
                 type="button"
                 onClick={() => setValue("method", "password")}
                 className={`rounded-xl px-4 py-2 text-sm font-bold transition ${
-                  method === "password" ? "bg-white text-slate-900 shadow-sm" : "text-white/65"
+                    method === "password" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
                 }`}
               >
                 Password
@@ -296,7 +230,7 @@ export default function LoginPage() {
                 type="button"
                 onClick={() => setValue("method", "otp")}
                 className={`rounded-xl px-4 py-2 text-sm font-bold transition ${
-                  method === "otp" ? "bg-white text-slate-900 shadow-sm" : "text-white/65"
+                    method === "otp" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
                 }`}
               >
                 OTP
@@ -305,63 +239,60 @@ export default function LoginPage() {
 
             <form className="mt-6 grid gap-5" onSubmit={handleSubmit(onSubmit)}>
               <label className="grid gap-2">
-                <span className="text-sm font-semibold text-white/80">Email</span>
-                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 px-4 py-3">
-                  <IconMail size={18} className="text-white/55" />
+                <span className="text-sm font-semibold text-slate-700">Email address</span>
+                <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 transition focus-within:border-[#5b3df5] focus-within:ring-4 focus-within:ring-[#5b3df5]/10">
+                  <IconMail size={18} className="text-slate-400" />
                   <input
                     {...register("identifier")}
                     type="email"
-                    className="w-full bg-transparent text-sm text-white placeholder:text-white/35 outline-none"
+                    className="w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none"
                     placeholder="admin@oddo.com"
                   />
                 </div>
-                {errors.identifier && <span className="text-xs font-medium text-[#fca5a5]">{errors.identifier.message}</span>}
+                {errors.identifier && <span className="text-xs font-medium text-red-600">{errors.identifier.message}</span>}
               </label>
 
               <input type="hidden" {...register("role")} />
 
               <label className="grid gap-2">
-                <span className="text-sm font-semibold text-white/80">{method === "otp" ? "OTP code" : "Password"}</span>
-                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 px-4 py-3">
-                  <IconLock size={18} className="text-white/55" />
+                <span className="text-sm font-semibold text-slate-700">{method === "otp" ? "One-time password" : "Password"}</span>
+                <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 transition focus-within:border-[#5b3df5] focus-within:ring-4 focus-within:ring-[#5b3df5]/10">
+                  <IconLock size={18} className="text-slate-400" />
                   <input
                     {...register("secret")}
                     type={showSecret ? "text" : method === "otp" ? "text" : "password"}
-                    className="w-full bg-transparent text-sm text-white placeholder:text-white/35 outline-none"
+                    className="w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none"
                     placeholder={method === "otp" ? "Enter OTP" : `Use ${DEMO_PASSWORD} for demo`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowSecret((current) => !current)}
-                    className="rounded-full p-1 text-white/55 transition hover:bg-white/10 hover:text-white"
+                      className="rounded-full p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
                   >
                     {showSecret ? <IconEyeOff size={18} /> : <IconEye size={18} />}
                   </button>
                 </div>
-                {errors.secret && <span className="text-xs font-medium text-[#fca5a5]">{errors.secret.message}</span>}
+                {errors.secret && <span className="text-xs font-medium text-red-600">{errors.secret.message}</span>}
               </label>
 
-              <div className="flex items-center justify-between gap-3 text-sm text-white/65">
+              <div className="flex items-center justify-between gap-3 text-sm text-slate-500">
                 <button
                   type="button"
                   onClick={sendOtp}
-                  className="font-semibold text-white/80 transition hover:text-white"
+                  className="font-semibold text-[#5b3df5] transition hover:text-[#4328d4]"
                 >
                   {method === "otp" ? "Send OTP" : "Need OTP preview?"}
                 </button>
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs uppercase tracking-[0.25em]">
-                  <IconPhone size={12} />
-                  {otpSent ? "OTP ready" : "Email login"}
-                </span>
+                <span className="text-xs font-medium">{otpSent ? "OTP ready" : "Secure login"}</span>
               </div>
 
-              <div className="rounded-[1.1rem] border border-white/10 bg-white/6 px-3 py-2.5">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/45">Detected role</div>
-                    <div className="mt-1 text-sm font-bold text-white">{ROLE_SHORT_LABELS[previewRole]}</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.26em] text-slate-400">Detected role</div>
+                    <div className="mt-1 text-sm font-bold text-slate-900">{ROLE_SHORT_LABELS[previewRole]}</div>
                   </div>
-                  <div className="text-right text-xs text-white/55">
+                  <div className="text-right text-xs text-slate-500">
                     {demoHint ? (
                       <>
                         <div>{demoHint.email}</div>
@@ -392,23 +323,24 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="rounded-2xl bg-[#5b3df5] px-4 py-3.5 text-sm font-bold text-white shadow-[0_18px_36px_rgba(91,61,245,0.28)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-[#5b3df5] px-4 py-3.5 text-sm font-bold text-white shadow-[0_18px_36px_rgba(91,61,245,0.28)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Signing in..." : "Login to Dashboard"}
               </button>
             </form>
+            <div className="mt-8 border-t border-slate-200 pt-6">
+              <div className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Quick demo access</div>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {DEMO_ACCOUNTS.map((account) => (
+                  <button key={account.email} type="button" onClick={() => { setValue("identifier", account.email, { shouldDirty: true, shouldValidate: true }); setValue("role", account.role, { shouldDirty: true, shouldValidate: true }); setDemoHint(account); setStatusMessage(""); }} className={`rounded-xl border px-3 py-2.5 text-left text-xs font-semibold transition ${demoHint?.email === account.email ? "border-[#5b3df5]/30 bg-[#f1efff] text-[#4d34d8]" : "border-slate-200 text-slate-600 hover:border-[#5b3df5]/30"}`}>
+                    {account.title}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </div>
     </main>
-  );
-}
-
-function FeatureChip({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm">
-      <div className="text-sm font-bold text-slate-900">{title}</div>
-      <p className="mt-2 text-sm leading-6 text-slate-600">{desc}</p>
-    </div>
   );
 }

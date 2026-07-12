@@ -11,11 +11,11 @@ export default function AssetFlowLogo({ size = 44, compact = false }: AssetFlowL
         style={{ width: size, height: size }}
         aria-hidden="true"
       >
-        <span className="text-[0.86em] font-black tracking-[0.08em]">AF</span>
+        <span className="text-[0.72em] font-black tracking-[0.04em]">NA</span>
       </div>
       {!compact && (
         <div className="leading-tight">
-          <div className="text-base font-black tracking-[0.22em] text-slate-900">ASSETFLOW</div>
+          <div className="text-base font-black tracking-[0.16em] text-slate-900">NOVAASSETS</div>
           <div className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">Enterprise Assets</div>
         </div>
       )}

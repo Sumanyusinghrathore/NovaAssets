@@ -13,11 +13,11 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "AssetFlow",
+  title: "NovaAssets",
   description: "Enterprise Asset & Resource Management System",
   icons: {
-    icon: "/assetflow-logo.svg",
-    apple: "/assetflow-logo.svg",
+    icon: "/novaassets_logo.webp",
+    apple: "/novaassets_logo.webp",
   },
 };
 
