@@ -797,7 +797,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── FOOTER ────────────────────────────────────────────── */}
+        
         <footer className="af-foot">
           <div className="af-foot-inner">
             <AssetFlowLogo size={32} />
