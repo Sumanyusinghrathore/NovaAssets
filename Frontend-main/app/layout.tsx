@@ -11,7 +11,6 @@ const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
 });
-
 export const metadata: Metadata = {
   title: "NovaAssets",
   description: "Enterprise Asset & Resource Management System",
