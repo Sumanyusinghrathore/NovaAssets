@@ -97,16 +97,37 @@ const S = `
   .af-hero {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, #eef2ff 0%, #f0f4ff 35%, #f8fafc 70%, #f8fafc 100%);
+    background: #0a0614;
+    min-height: 100vh;
+  }
+  .af-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/office_dark_purple_bg.png') center center / cover no-repeat;
+    opacity: 0.38;
+    z-index: 0;
+  }
+  .af-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10,6,20,0.55) 0%, rgba(10,6,20,0.25) 35%, rgba(10,6,20,0.45) 70%, rgba(10,6,20,0.92) 100%),
+      radial-gradient(ellipse 900px 600px at 72% -5%, rgba(139,92,246,0.18), transparent),
+      radial-gradient(ellipse 600px 400px at 5% 90%, rgba(99,52,241,0.12), transparent);
+    z-index: 0;
+    pointer-events: none;
   }
   .af-hero-gfx {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 900px 600px at 72% -5%, rgba(91,61,245,0.12), transparent),
-      radial-gradient(ellipse 600px 400px at 5% 90%, rgba(99,102,241,0.08), transparent);
+      radial-gradient(ellipse 900px 600px at 72% -5%, rgba(139,92,246,0.14), transparent),
+      radial-gradient(ellipse 600px 400px at 5% 90%, rgba(99,52,241,0.10), transparent);
     pointer-events: none;
     will-change: transform;
+    z-index: 1;
   }
   .af-hero-inner {
     position: relative;
@@ -126,27 +147,29 @@ const S = `
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: white;
-    border: 1px solid rgba(91,61,245,0.18);
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.28);
     border-radius: 99px;
     padding: 4px 12px 4px 8px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.9px;
     text-transform: uppercase;
-    color: #5b3df5;
-    box-shadow: 0 2px 8px rgba(91,61,245,0.08);
+    color: #c4b5fd;
+    box-shadow: 0 2px 12px rgba(139,92,246,0.15);
     margin-bottom: 24px;
     opacity: 0;
     transform: translateY(16px);
     transition: opacity 0.6s ease, transform 0.6s ease;
+    backdrop-filter: blur(8px);
   }
   .af-hero-badge.anim-in { opacity: 1; transform: translateY(0); }
   .af-badge-dot {
     width: 7px; height: 7px;
     border-radius: 50%;
-    background: #5b3df5;
+    background: #a78bfa;
     animation: af-pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(167,139,250,0.6);
   }
   @keyframes af-pulse {
     0%,100% { opacity: 0.4; transform: scale(0.9); }
@@ -157,10 +180,11 @@ const S = `
   .af-hero h1 {
     font-size: clamp(34px, 4.8vw, 56px);
     font-weight: 900;
-    color: #0f172a;
+    color: #f1f0ff;
     line-height: 1.06;
     letter-spacing: -1.5px;
     margin-bottom: 20px;
+    text-shadow: 0 2px 30px rgba(139,92,246,0.18);
   }
   .word-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; }
   .word-inner {
@@ -174,7 +198,7 @@ const S = `
   .af-hero-sub {
     font-size: 15.5px;
     line-height: 1.75;
-    color: #475569;
+    color: rgba(203,198,230,0.85);
     max-width: 520px;
     margin-bottom: 36px;
     opacity: 0;
@@ -196,7 +220,7 @@ const S = `
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #5b3df5;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
     color: white;
     border: none;
     border-radius: 14px;
@@ -205,28 +229,29 @@ const S = `
     font-weight: 700;
     text-decoration: none;
     transition: all 0.25s;
-    box-shadow: 0 18px 40px rgba(91,61,245,0.28);
+    box-shadow: 0 18px 40px rgba(124,58,237,0.35), 0 0 0 1px rgba(139,92,246,0.2) inset;
   }
   .af-btn-primary:hover {
-    filter: brightness(1.08);
+    filter: brightness(1.12);
     transform: translateY(-2px);
-    box-shadow: 0 24px 50px rgba(91,61,245,0.36);
+    box-shadow: 0 24px 50px rgba(124,58,237,0.45), 0 0 20px rgba(139,92,246,0.25);
   }
   .af-btn-outline {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: white;
-    color: #334155;
-    border: 1.5px solid rgba(148,163,184,0.35);
+    background: rgba(255,255,255,0.06);
+    color: #c4b5fd;
+    border: 1.5px solid rgba(139,92,246,0.3);
     border-radius: 14px;
     padding: 13px 24px;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.25s;
+    backdrop-filter: blur(8px);
   }
-  .af-btn-outline:hover { border-color: #5b3df5; color: #5b3df5; background: rgba(91,61,245,0.04); }
+  .af-btn-outline:hover { border-color: #a78bfa; color: #e9d5ff; background: rgba(139,92,246,0.12); }
 
   /* KPI tiles */
   .af-hero-kpis {
@@ -236,12 +261,12 @@ const S = `
     margin-top: 44px;
   }
   .af-kpi-tile {
-    background: rgba(255,255,255,0.82);
-    border: 1px solid rgba(148,163,184,0.2);
+    background: rgba(15,10,35,0.55);
+    border: 1px solid rgba(139,92,246,0.15);
     border-radius: 20px;
     padding: 18px 20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 16px rgba(15,23,42,0.06);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.25s;
@@ -249,17 +274,18 @@ const S = `
   .af-kpi-tile.tile-visible { opacity: 1; transform: translateY(0); }
   .af-kpi-tile:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(91,61,245,0.1);
-    border-color: rgba(91,61,245,0.2);
+    box-shadow: 0 12px 30px rgba(139,92,246,0.2);
+    border-color: rgba(139,92,246,0.35);
+    background: rgba(25,15,55,0.7);
   }
   .af-kpi-tile-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .af-kpi-tile-label { font-size: 12px; font-weight: 600; color: #64748b; }
+  .af-kpi-tile-label { font-size: 12px; font-weight: 600; color: rgba(196,181,253,0.7); }
   .af-kpi-icon {
     width: 28px; height: 28px; border-radius: 8px;
-    background: #eef2ff; color: #5b3df5;
+    background: rgba(139,92,246,0.18); color: #a78bfa;
     display: flex; align-items: center; justify-content: center;
   }
-  .af-kpi-val { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: #0f172a; }
+  .af-kpi-val { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: #f1f0ff; }
 
   /* Hero card */
   .af-hero-card {
@@ -456,7 +482,7 @@ const S = `
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 48px;
+    gap: 40px;
   }
   .af-foot-brand-centered {
     display: flex;
@@ -479,6 +505,14 @@ const S = `
     letter-spacing: 0.3em;
     color: rgba(255, 255, 255, 0.35);
     margin-top: 2px;
+  }
+  .af-foot-tagline {
+    max-width: 480px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: -12px;
+    margin-bottom: 12px;
   }
   .af-foot-grid-centered {
     display: flex;
@@ -553,6 +587,104 @@ const S = `
     transition: color 0.18s;
   }
   .af-foot-contact-item-centered a:hover {
+    color: #a78bfa;
+  }
+  .af-foot-contact-icon-centered {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: rgba(91, 61, 245, 0.15);
+    border: 1px solid rgba(91, 61, 245, 0.25);
+    color: #a78bfa;
+    flex-shrink: 0;
+  }
+  .af-foot-newsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    width: 100%;
+    max-width: 460px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 40px;
+  }
+  .af-foot-newsletter h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+  }
+  .af-foot-newsletter p {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 4px;
+  }
+  .af-foot-newsletter-form {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .af-foot-newsletter-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: white;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .af-foot-newsletter-input:focus {
+    border-color: #5b3df5;
+    background: rgba(255, 255, 255, 0.07);
+  }
+  .af-foot-newsletter-btn {
+    background: #5b3df5;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .af-foot-newsletter-btn:hover {
+    background: #7c6af7;
+    transform: translateY(-1px);
+  }
+  .af-foot-social {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .af-foot-social-icon-centered {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: all 0.22s;
+  }
+  .af-foot-social-icon-centered:hover {
+    background: #5b3df5;
+    border-color: #5b3df5;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(91, 61, 245, 0.35);
+  }
     color: #a78bfa;
   }
   .af-foot-contact-icon-centered {
@@ -1065,7 +1197,7 @@ export default function HomePage() {
               <img
                 src="/novaassets_logo.webp"
                 alt="NovaAssets"
-                style={{ height: 42, width: "auto", display: "block" }}
+                style={{ height: 44, width: "auto", display: "block" }}
               />
               <div>
                 <div className="af-foot-brand-title">NOVAASSETS</div>
@@ -1073,7 +1205,11 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Grid for Resources and Contact */}
+            <p className="af-foot-tagline">
+              Enterprise Asset Intelligence. One premium control room for every asset, team, and approval flow.
+            </p>
+
+            {/* Grid for Columns */}
             <div className="af-foot-grid-centered">
               {/* Resources Column */}
               <div className="af-foot-col-centered">
@@ -1082,6 +1218,17 @@ export default function HomePage() {
                   {FOOTER_LINKS.resources.map((item) => (
                     <li key={item}><a href="#">{item}</a></li>
                   ))}
+                </ul>
+              </div>
+
+              {/* Features Column */}
+              <div className="af-foot-col-centered">
+                <h3 className="af-foot-col-title-centered">Features</h3>
+                <ul className="af-foot-links-list-centered">
+                  <li><a href="#features">Asset Lifecycle</a></li>
+                  <li><a href="#features">Bookings & Rooms</a></li>
+                  <li><a href="#roles">Custom Roles</a></li>
+                  <li><a href="#features">Audit-Ready Compliance</a></li>
                 </ul>
               </div>
 
@@ -1106,6 +1253,39 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Newsletter Subscription */}
+            <div className="af-foot-newsletter">
+              <h4>Subscribe to our Newsletter</h4>
+              <p>Get product updates, security alerts, and asset optimization tips.</p>
+              <form className="af-foot-newsletter-form" onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="email"
+                  placeholder="Enter your work email"
+                  required
+                  className="af-foot-newsletter-input"
+                />
+                <button type="submit" className="af-foot-newsletter-btn">
+                  Subscribe
+                </button>
+              </form>
+            </div>
+
+            {/* Social Icons */}
+            <div className="af-foot-social">
+              {/* Twitter / X */}
+              <a href="#" className="af-foot-social-icon-centered" aria-label="Twitter">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              {/* LinkedIn */}
+              <a href="#" className="af-foot-social-icon-centered" aria-label="LinkedIn">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              {/* GitHub */}
+              <a href="#" className="af-foot-social-icon-centered" aria-label="GitHub">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
             </div>
           </div>
 
