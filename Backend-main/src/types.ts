@@ -44,8 +44,30 @@ export type JwtPayload = {
 export type AuthUser = JwtPayload & { permissions: Permission[]; name?: string };
 
 export type LoginRequest = {
-  email: string;
+  email?: string;
+  identifier?: string;
   password: string;
+};
+
+export type OtpLoginSendRequest = {
+  identifier: string;
+  role?: RoleName;
+};
+
+export type OtpLoginVerifyRequest = {
+  identifier: string;
+  role?: RoleName;
+  challengeId: string;
+  otp: string;
+};
+
+export type OtpLoginSendResponse = {
+  challengeId: string;
+  identifier: string;
+  role?: RoleName;
+  otp: string;
+  expiresAt: string;
+  message: string;
 };
 
 export type RegisterRequest = {

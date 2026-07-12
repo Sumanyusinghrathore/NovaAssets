@@ -2,6 +2,7 @@ import { connectDatabase } from "../db/connect";
 import { initDatabase } from "../db/init";
 import { getCollections } from "../db/collections";
 import { db as mockDb } from "../db/mockDb";
+import { syncDemoAuthUsers } from "../db/seed";
 
 async function main() {
   const db = await connectDatabase();
@@ -11,6 +12,10 @@ async function main() {
   }
 
   await initDatabase();
+  const authSync = await syncDemoAuthUsers();
+  console.log(
+    `Synced ${authSync.upsertedCount + authSync.modifiedCount} demo auth user(s) into MongoDB.`
+  );
 
   const c = await getCollections();
   const existing = await c.users.find({}, { projection: { email: 1 } }).toArray();
