@@ -94,16 +94,37 @@ const S = `
   .af-hero {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, #eef2ff 0%, #f0f4ff 35%, #f8fafc 70%, #f8fafc 100%);
+    background: #0a0614;
+    min-height: 100vh;
+  }
+  .af-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/office_dark_purple_bg.png') center center / cover no-repeat;
+    opacity: 0.38;
+    z-index: 0;
+  }
+  .af-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10,6,20,0.55) 0%, rgba(10,6,20,0.25) 35%, rgba(10,6,20,0.45) 70%, rgba(10,6,20,0.92) 100%),
+      radial-gradient(ellipse 900px 600px at 72% -5%, rgba(139,92,246,0.18), transparent),
+      radial-gradient(ellipse 600px 400px at 5% 90%, rgba(99,52,241,0.12), transparent);
+    z-index: 0;
+    pointer-events: none;
   }
   .af-hero-gfx {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 900px 600px at 72% -5%, rgba(91,61,245,0.12), transparent),
-      radial-gradient(ellipse 600px 400px at 5% 90%, rgba(99,102,241,0.08), transparent);
+      radial-gradient(ellipse 900px 600px at 72% -5%, rgba(139,92,246,0.14), transparent),
+      radial-gradient(ellipse 600px 400px at 5% 90%, rgba(99,52,241,0.10), transparent);
     pointer-events: none;
     will-change: transform;
+    z-index: 1;
   }
   .af-hero-inner {
     position: relative;
@@ -123,27 +144,29 @@ const S = `
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: white;
-    border: 1px solid rgba(91,61,245,0.18);
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.28);
     border-radius: 99px;
     padding: 4px 12px 4px 8px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.9px;
     text-transform: uppercase;
-    color: #5b3df5;
-    box-shadow: 0 2px 8px rgba(91,61,245,0.08);
+    color: #c4b5fd;
+    box-shadow: 0 2px 12px rgba(139,92,246,0.15);
     margin-bottom: 24px;
     opacity: 0;
     transform: translateY(16px);
     transition: opacity 0.6s ease, transform 0.6s ease;
+    backdrop-filter: blur(8px);
   }
   .af-hero-badge.anim-in { opacity: 1; transform: translateY(0); }
   .af-badge-dot {
     width: 7px; height: 7px;
     border-radius: 50%;
-    background: #5b3df5;
+    background: #a78bfa;
     animation: af-pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(167,139,250,0.6);
   }
   @keyframes af-pulse {
     0%,100% { opacity: 0.4; transform: scale(0.9); }
@@ -154,10 +177,11 @@ const S = `
   .af-hero h1 {
     font-size: clamp(34px, 4.8vw, 56px);
     font-weight: 900;
-    color: #0f172a;
+    color: #f1f0ff;
     line-height: 1.06;
     letter-spacing: -1.5px;
     margin-bottom: 20px;
+    text-shadow: 0 2px 30px rgba(139,92,246,0.18);
   }
   .word-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; }
   .word-inner {
@@ -171,7 +195,7 @@ const S = `
   .af-hero-sub {
     font-size: 15.5px;
     line-height: 1.75;
-    color: #475569;
+    color: rgba(203,198,230,0.85);
     max-width: 520px;
     margin-bottom: 36px;
     opacity: 0;
@@ -193,7 +217,7 @@ const S = `
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #5b3df5;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
     color: white;
     border: none;
     border-radius: 14px;
@@ -202,28 +226,29 @@ const S = `
     font-weight: 700;
     text-decoration: none;
     transition: all 0.25s;
-    box-shadow: 0 18px 40px rgba(91,61,245,0.28);
+    box-shadow: 0 18px 40px rgba(124,58,237,0.35), 0 0 0 1px rgba(139,92,246,0.2) inset;
   }
   .af-btn-primary:hover {
-    filter: brightness(1.08);
+    filter: brightness(1.12);
     transform: translateY(-2px);
-    box-shadow: 0 24px 50px rgba(91,61,245,0.36);
+    box-shadow: 0 24px 50px rgba(124,58,237,0.45), 0 0 20px rgba(139,92,246,0.25);
   }
   .af-btn-outline {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: white;
-    color: #334155;
-    border: 1.5px solid rgba(148,163,184,0.35);
+    background: rgba(255,255,255,0.06);
+    color: #c4b5fd;
+    border: 1.5px solid rgba(139,92,246,0.3);
     border-radius: 14px;
     padding: 13px 24px;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.25s;
+    backdrop-filter: blur(8px);
   }
-  .af-btn-outline:hover { border-color: #5b3df5; color: #5b3df5; background: rgba(91,61,245,0.04); }
+  .af-btn-outline:hover { border-color: #a78bfa; color: #e9d5ff; background: rgba(139,92,246,0.12); }
 
   /* KPI tiles */
   .af-hero-kpis {
@@ -233,12 +258,12 @@ const S = `
     margin-top: 44px;
   }
   .af-kpi-tile {
-    background: rgba(255,255,255,0.82);
-    border: 1px solid rgba(148,163,184,0.2);
+    background: rgba(15,10,35,0.55);
+    border: 1px solid rgba(139,92,246,0.15);
     border-radius: 20px;
     padding: 18px 20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 16px rgba(15,23,42,0.06);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.25s;
@@ -246,17 +271,18 @@ const S = `
   .af-kpi-tile.tile-visible { opacity: 1; transform: translateY(0); }
   .af-kpi-tile:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(91,61,245,0.1);
-    border-color: rgba(91,61,245,0.2);
+    box-shadow: 0 12px 30px rgba(139,92,246,0.2);
+    border-color: rgba(139,92,246,0.35);
+    background: rgba(25,15,55,0.7);
   }
   .af-kpi-tile-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .af-kpi-tile-label { font-size: 12px; font-weight: 600; color: #64748b; }
+  .af-kpi-tile-label { font-size: 12px; font-weight: 600; color: rgba(196,181,253,0.7); }
   .af-kpi-icon {
     width: 28px; height: 28px; border-radius: 8px;
-    background: #eef2ff; color: #5b3df5;
+    background: rgba(139,92,246,0.18); color: #a78bfa;
     display: flex; align-items: center; justify-content: center;
   }
-  .af-kpi-val { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: #0f172a; }
+  .af-kpi-val { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: #f1f0ff; }
 
   /* Hero card */
   .af-hero-card {
