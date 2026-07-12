@@ -13,7 +13,7 @@ export default function AssetFlowLogo({
     <div className="flex items-center gap-3">
       {/* Logo */}
       <Image
-        src="/logo.png"
+        src="/novaassets_logo.webp"
         alt="NovaAssets Logo"
         width={size}
         height={size}
