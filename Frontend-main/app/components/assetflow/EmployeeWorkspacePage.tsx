@@ -5,7 +5,13 @@ import Link from "next/link";
 import { IconArrowLeft, IconBriefcase, IconClipboardList, IconFactory, IconPackage, IconPlus, IconWrench, IconX } from "../icons/Icons";
 import SectionPanel from "./cards/SectionPanel";
 import type { AssetFlowSection } from "@/app/lib/assetflow-roles";
-import { createAssetRequest, listMyAssetRequests, type AssetRequestItem } from "@/app/lib/imsApi";
+import {
+  createAssetRequest,
+  listAssetCategories,
+  listMyAssetRequests,
+  type AssetCategoryItem,
+  type AssetRequestItem,
+} from "@/app/lib/imsApi";
 
 type Props = {
   section: AssetFlowSection;
@@ -30,6 +36,8 @@ const REQUEST_TEMPLATES: RequestTemplate[] = [
   { name: "Office Table", category: "Furniture", quantity: 1, purpose: "Shared meeting or workspace table.", icon: "table" },
   { name: "Laptop", category: "Electronics", quantity: 1, purpose: "Portable device for field or remote work.", icon: "laptop" },
 ];
+
+const DEFAULT_CATEGORY_OPTIONS = ["Furniture", "Electronics", "Accessories", "Office Equipment", "Networking", "Security", "Vehicles", "General"];
 
 const ASSIGNED_ASSETS = [
   { tag: "ASSET-214", name: "Laptop Pro 14", status: "Assigned", category: "Electronics", note: "Primary work device" },
@@ -67,22 +75,29 @@ function statusLabel(status: AssetRequestItem["status"]) {
   return status;
 }
 
+function statusHint(item: AssetRequestItem) {
+  if (item.status === "Approved") return item.approvedBy ? `Approved by ${item.approvedBy}` : "Approved by manager";
+  if (item.status === "Fulfilled") return "Assets issued";
+  if (item.status === "Rejected") return "Request rejected";
+  return "Waiting for manager approval";
+}
+
 function numberFormat(value: number) {
   return new Intl.NumberFormat("en-IN").format(value);
 }
 
 export default function EmployeeWorkspacePage({ section, backHref, title, subtitle }: Props) {
   const [requests, setRequests] = useState<AssetRequestItem[]>([]);
+  const [categories, setCategories] = useState<AssetCategoryItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
     itemName: "",
     category: "",
-    quantity: 1,
     purpose: "",
-    location: "Employee workstation",
   });
 
   async function loadRequests() {
@@ -97,13 +112,35 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
     }
   }
 
+  async function loadCategories() {
+    setCategoriesLoading(true);
+    try {
+      const data = await listAssetCategories();
+      setCategories(data.filter((item) => item.isActive));
+    } catch {
+      setCategories([]);
+    } finally {
+      setCategoriesLoading(false);
+    }
+  }
+
   useEffect(() => {
     loadRequests();
+    loadCategories();
   }, []);
 
   const pendingCount = useMemo(() => requests.filter((item) => item.status === "Pending").length, [requests]);
   const approvedCount = useMemo(() => requests.filter((item) => item.status === "Approved").length, [requests]);
   const fulfilledCount = useMemo(() => requests.filter((item) => item.status === "Fulfilled").length, [requests]);
+  const categoryOptions = useMemo(() => {
+    const ordered = [
+      ...DEFAULT_CATEGORY_OPTIONS,
+      ...REQUEST_TEMPLATES.map((item) => item.category),
+      ...categories.map((item) => item.name),
+      ...requests.map((item) => item.category),
+    ];
+    return Array.from(new Set(ordered.map((item) => item.trim()).filter(Boolean)));
+  }, [categories, requests]);
 
   const heading = section === "my-assets" ? "Request workspace assets" : section === "bookings" ? "Reserve work essentials" : section === "maintenance" ? "Raise a service request" : section === "notifications" ? "Keep your workspace updated" : "Manage your profile";
 
@@ -111,9 +148,7 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
     setForm({
       itemName: template.name,
       category: template.category,
-      quantity: template.quantity,
       purpose: template.purpose,
-      location: "Employee workstation",
     });
     setModalOpen(true);
     setMessage("");
@@ -131,14 +166,14 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
       await createAssetRequest({
         itemName: form.itemName.trim(),
         category: form.category.trim() || undefined,
-        quantity: form.quantity,
+        quantity: 1,
         purpose: form.purpose.trim() || undefined,
-        location: form.location.trim() || undefined,
+        location: "Employee workstation",
       });
       setModalOpen(false);
-      setForm({ itemName: "", category: "", quantity: 1, purpose: "", location: "Employee workstation" });
+      setForm({ itemName: "", category: "", purpose: "" });
       await loadRequests();
-      setMessage("Request submitted successfully.");
+      setMessage("Request sent to manager successfully.");
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Unable to submit request.");
     } finally {
@@ -212,7 +247,7 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
                     </div>
                     <div className="mt-3 text-base font-black text-slate-900">{template.name}</div>
                   </div>
-                  <div className="rounded-2xl bg-slate-50 p-2 text-slate-500">{template.quantity}x</div>
+                    <div className="rounded-2xl bg-slate-50 p-2 text-slate-500">{template.quantity}x</div>
                 </div>
                 <div className="mt-2 text-sm text-slate-600">{template.purpose}</div>
               </button>
@@ -245,6 +280,7 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
                     <div className="mt-2 text-sm leading-6 text-slate-500">
                       {item.purpose}
                       {item.location ? ` • ${item.location}` : ""}
+                      <span className="mt-1 block text-xs text-slate-400">{statusHint(item)}</span>
                     </div>
                   )}
                 </div>
@@ -301,12 +337,12 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/45 p-4 backdrop-blur-sm sm:items-center">
-          <div className="w-full max-w-2xl rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_40px_120px_rgba(15,23,42,0.35)]">
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/45 p-3 backdrop-blur-sm sm:items-center sm:p-4">
+          <div className="max-h-[calc(100vh-1.5rem)] w-full max-w-xl overflow-y-auto rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_40px_120px_rgba(15,23,42,0.35)] sm:max-h-[calc(100vh-2rem)] sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Request asset</div>
-                <div className="mt-1 text-2xl font-black tracking-tight text-slate-900">Submit a new entry</div>
+                <div className="mt-1 text-2xl font-black tracking-tight text-slate-900">Send request to manager</div>
               </div>
               <button
                 type="button"
@@ -329,32 +365,37 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
               </label>
               <label className="grid gap-2">
                 <span className="text-sm font-semibold text-slate-700">Category</span>
-                <input
+                <select
                   value={form.category}
                   onChange={(e) => setForm((current) => ({ ...current, category: e.target.value }))}
-                  placeholder="Furniture"
                   className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-[#5b3df5]/40 focus:bg-white"
-                />
+                >
+                  <option value="">Select category</option>
+                  {categoriesLoading ? <option value="" disabled>Loading categories...</option> : null}
+                  {categoryOptions.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
               </label>
-              <label className="grid gap-2">
-                <span className="text-sm font-semibold text-slate-700">Quantity</span>
-                <input
-                  type="number"
-                  min={1}
-                  value={form.quantity}
-                  onChange={(e) => setForm((current) => ({ ...current, quantity: Number(e.target.value) || 1 }))}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-[#5b3df5]/40 focus:bg-white"
-                />
-              </label>
-              <label className="grid gap-2">
-                <span className="text-sm font-semibold text-slate-700">Location</span>
-                <input
-                  value={form.location}
-                  onChange={(e) => setForm((current) => ({ ...current, location: e.target.value }))}
-                  placeholder="Employee workstation"
-                  className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-[#5b3df5]/40 focus:bg-white"
-                />
-              </label>
+            </div>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {categoryOptions.slice(0, 8).map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setForm((current) => ({ ...current, category: item }))}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                    form.category === item
+                      ? "border-[#5b3df5] bg-[#5b3df5] text-white"
+                      : "border-slate-200 bg-slate-50 text-slate-600 hover:border-[#5b3df5]/30 hover:text-[#5b3df5]"
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
 
             <label className="mt-4 grid gap-2">
@@ -367,6 +408,10 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
                 className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-[#5b3df5]/40 focus:bg-white"
               />
             </label>
+
+            <div className="mt-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-3 text-xs leading-6 text-slate-500">
+              Your request will go to the manager for approval, and the status will update here when it is approved.
+            </div>
 
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-end">
               <button
@@ -382,7 +427,7 @@ export default function EmployeeWorkspacePage({ section, backHref, title, subtit
                 onClick={submitRequest}
                 className="rounded-2xl bg-[#5b3df5] px-5 py-3 text-sm font-bold text-white shadow-[0_18px_30px_rgba(91,61,245,0.26)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {submitting ? "Submitting..." : "Submit request"}
+                {submitting ? "Sending..." : "Send to manager"}
               </button>
             </div>
           </div>

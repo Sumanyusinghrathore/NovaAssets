@@ -1,7 +1,7 @@
 "use client";
 
 import AssetFlowLogo from "../AssetFlowLogo";
-import { IconBell, IconMenu, IconMoon, IconSearch, IconSun, IconUser } from "@/app/components/icons/Icons";
+import { IconBell, IconLogout, IconMenu, IconMoon, IconSearch, IconSun, IconUser } from "@/app/components/icons/Icons";
 import { ROLE_LABELS, type AssetFlowRole } from "@/app/lib/assetflow-roles";
 
 export default function Navbar({
@@ -63,13 +63,28 @@ export default function Navbar({
         <button
           type="button"
           onClick={onLogout}
+          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 text-rose-700 shadow-sm transition hover:border-rose-300 hover:bg-rose-100 lg:hidden"
+          aria-label="Logout"
+        >
+          <IconLogout size={18} />
+        </button>
+
+        <button
+          type="button"
+          onClick={onLogout}
           className="hidden items-center gap-3 rounded-[1.2rem] border border-slate-200 bg-white px-3 py-2.5 text-left shadow-sm transition hover:border-[#5b3df5]/30 hover:shadow-md lg:flex"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#5b3df5,#7c6af7)] text-white">
             <IconUser size={18} />
           </div>
           <div>
-            <div className="text-sm font-bold text-slate-900">{ROLE_LABELS[role]}</div>
+            <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
+              {ROLE_LABELS[role]}
+              <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-rose-700">
+                <IconLogout size={11} />
+                Logout
+              </span>
+            </div>
             <div className="text-xs text-slate-500">NovaAssets workspace</div>
           </div>
         </button>

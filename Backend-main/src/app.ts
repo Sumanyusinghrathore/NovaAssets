@@ -23,14 +23,12 @@ import rolesRouter from "./routes/roles";
 import engineerAssignmentsRouter from "./routes/engineerAssignments";
 import geoRouter from "./routes/geo";
 import assetRequestsRouter from "./routes/assetRequests";
+import assetCategoriesRouter from "./routes/assetCategories";
 
 const app = express();
 
 function createCorsOptions() {
   const allowedOrigins = [
-    "https://aurawatt.in",
-    "https://www.aurawatt.in",
-    "https://frontend-six-alpha-iyg19kf2uq.vercel.app",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     ...(process.env.CORS_ORIGIN ?? "")
@@ -99,6 +97,7 @@ app.use("/api/notifications", notificationsRouter);
 app.use("/api/roles", rolesRouter);
 app.use("/api/engineer-assignments", engineerAssignmentsRouter);
 app.use("/api/asset-requests", assetRequestsRouter);
+app.use("/api/asset-categories", assetCategoriesRouter);
 app.use("/api/geo", geoRouter);
 
 // 404 fallback

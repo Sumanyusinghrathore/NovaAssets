@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import AssetFlowLogo from "../AssetFlowLogo";
+import { IconLogout } from "../../icons/Icons";
 import { ROLE_LABELS, ROLE_NAV, sectionHref, type AssetFlowRole } from "@/app/lib/assetflow-roles";
 
 export default function Sidebar({
@@ -9,11 +10,13 @@ export default function Sidebar({
   pathname,
   open,
   onClose,
+  onLogout,
 }: {
   role: AssetFlowRole;
   pathname: string | null;
   open: boolean;
   onClose: () => void;
+  onLogout: () => void;
 }) {
   const navItems = ROLE_NAV[role];
   return (
@@ -58,6 +61,17 @@ export default function Sidebar({
               );
             })}
           </nav>
+        </div>
+
+        <div className="border-t border-slate-200 px-4 py-4">
+          <button
+            type="button"
+            onClick={onLogout}
+            className="flex w-full items-center gap-3 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
+          >
+            <IconLogout size={18} />
+            <span className="flex-1 text-left">Logout</span>
+          </button>
         </div>
 
       </aside>

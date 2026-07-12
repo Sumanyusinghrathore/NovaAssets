@@ -536,6 +536,19 @@ export type AssetRequestItem = {
   purpose?: string;
   location?: string;
   status: "Pending" | "Approved" | "Rejected" | "Fulfilled";
+  approvedBy?: string;
+  approvedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type AssetCategoryItem = {
+  id: string;
+  name: string;
+  group: string;
+  icon: string;
+  description?: string;
+  isActive: boolean;
   createdAt: string;
   updatedAt: string;
 };
@@ -1474,6 +1487,10 @@ export async function listMyAssetRequests() {
   return apiGet<AssetRequestItem[]>("/api/asset-requests/mine");
 }
 
+export async function listAssetRequests() {
+  return apiGet<AssetRequestItem[]>("/api/asset-requests");
+}
+
 export async function createAssetRequest(input: {
   itemName: string;
   category?: string;
@@ -1482,6 +1499,24 @@ export async function createAssetRequest(input: {
   location?: string;
 }) {
   return apiPost<AssetRequestItem>("/api/asset-requests", input);
+}
+
+export async function approveAssetRequest(id: string) {
+  return apiPost<AssetRequestItem>(`/api/asset-requests/${encodeURIComponent(id)}/approve`, {});
+}
+
+export async function listAssetCategories() {
+  return apiGet<AssetCategoryItem[]>("/api/asset-categories");
+}
+
+export async function createAssetCategory(input: {
+  name: string;
+  group?: string;
+  icon?: string;
+  description?: string;
+  isActive?: boolean;
+}) {
+  return apiPost<AssetCategoryItem>("/api/asset-categories", input);
 }
 
 export async function createRole(name: string) {

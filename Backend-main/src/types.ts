@@ -795,6 +795,19 @@ export type AssetRequest = {
   purpose?: string;
   location?: string;
   status: AssetRequestStatus;
+  approvedBy?: string;
+  approvedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type AssetCategory = {
+  id: string;
+  name: string;
+  group: string;
+  icon: string;
+  description?: string;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

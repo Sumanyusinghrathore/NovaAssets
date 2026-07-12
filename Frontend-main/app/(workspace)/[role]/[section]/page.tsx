@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import ModulePage from "@/app/components/assetflow/ModulePage";
+import AllocationReviewPage from "@/app/components/assetflow/AllocationReviewPage";
 import RoleDashboard from "@/app/components/assetflow/dashboard/RoleDashboard";
 import MongoWorkspacePage from "@/app/components/assetflow/MongoWorkspacePage";
 import EmployeeWorkspacePage from "@/app/components/assetflow/EmployeeWorkspacePage";
@@ -94,6 +95,10 @@ export default async function RoleSectionPage({
 
     const meta = titles[activeSection];
     return <MongoWorkspacePage role={activeRole} section={activeSection} title={meta.title} subtitle={meta.subtitle} />;
+  }
+
+  if (activeRole === "manager" && activeSection === "allocation") {
+    return <AllocationReviewPage />;
   }
 
   if (activeSection === "dashboard") {

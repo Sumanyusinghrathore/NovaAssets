@@ -28,6 +28,7 @@ import type {
   InwardMaster,
   InwardItemDetail,
   Counter,
+  AssetCategory,
 } from "../types";
 import { getMongoDb } from "./mongo";
 
@@ -54,6 +55,7 @@ export type Collections = {
   boms: Collection<SeriesBOM>;
   inventoryLogs: Collection<InventoryLog>;
   assetRequests: Collection<AssetRequest>;
+  assetCategories: Collection<AssetCategory>;
   spareRequests: Collection<SpareRequest>;
   replacementRequests: Collection<ReplacementRequest>;
   inwardMaster: Collection<InwardMaster>;
@@ -86,6 +88,7 @@ export async function getCollections(): Promise<Collections> {
     boms: db.collection<SeriesBOM>("boms"),
     inventoryLogs: db.collection<InventoryLog>("inventoryLogs"),
     assetRequests: db.collection<AssetRequest>("assetRequests"),
+    assetCategories: db.collection<AssetCategory>("assetCategories"),
     spareRequests: db.collection<SpareRequest>("spareRequests"),
     replacementRequests: db.collection<ReplacementRequest>("replacementRequests"),
     inwardMaster: db.collection<InwardMaster>("inward_master"),

@@ -2,7 +2,7 @@ import { getCollections } from "./collections";
 import { db as mockDb } from "./mockDb";
 import { normalizeRole } from "../rbac";
 import { generateId } from "../utils/id";
-import type { AssetRequest, Notification } from "../types";
+import type { AssetCategory, AssetRequest, Notification } from "../types";
 
 const DEMO_AUTH_EMAILS = new Set([
   "superadmin@oddo.com",
@@ -112,6 +112,17 @@ const DEMO_ASSET_REQUESTS: Array<AssetRequest> = [
   },
 ];
 
+const DEMO_ASSET_CATEGORIES: Array<AssetCategory> = [
+  { id: "cat-electronics", name: "Electronics", group: "Core Assets", icon: "laptop", description: "Computers, peripherals, and office tech.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+  { id: "cat-furniture", name: "Furniture", group: "Workspace", icon: "chair", description: "Desks, chairs, and meeting furniture.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+  { id: "cat-networking", name: "Networking", group: "Infrastructure", icon: "network", description: "Routers, switches, and connectivity gear.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+  { id: "cat-security", name: "Security", group: "Infrastructure", icon: "shield", description: "CCTV, biometric, fire safety, and access control.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+  { id: "cat-office-equipment", name: "Office Equipment", group: "Operations", icon: "printer", description: "Printers, scanners, projectors, and shared devices.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+  { id: "cat-vehicles", name: "Vehicles", group: "Operations", icon: "vehicle", description: "Company cars and transport assets.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+  { id: "cat-rooms", name: "Meeting Rooms", group: "Facilities", icon: "room", description: "Conference rooms and meeting spaces.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+  { id: "cat-storage", name: "Storage", group: "Facilities", icon: "box", description: "Lockers, cabinets, and storage units.", isActive: true, createdAt: new Date(), updatedAt: new Date() },
+];
+
 export async function syncDemoAuthUsers() {
   const c = await getCollections();
   const now = new Date();
@@ -161,6 +172,7 @@ export async function seedDatabaseIfEmpty() {
   const initialUsersCount = await c.users.estimatedDocumentCount();
   await syncDemoAuthUsers();
   await syncDemoNotifications();
+  await syncDemoAssetCategories();
   await syncDemoAssetRequests();
 
   const existingUsers = await c.users.find({}, { projection: { email: 1 } }).toArray();
@@ -197,6 +209,34 @@ export async function syncDemoNotifications() {
   if (!ops.length) return { matchedCount: 0, modifiedCount: 0, upsertedCount: 0 };
 
   const result = await c.notifications.bulkWrite(ops, { ordered: false });
+  return {
+    matchedCount: result.matchedCount,
+    modifiedCount: result.modifiedCount,
+    upsertedCount: result.upsertedCount,
+  };
+}
+
+export async function syncDemoAssetCategories() {
+  const c = await getCollections();
+  const now = new Date();
+  const docs = DEMO_ASSET_CATEGORIES.map((category, index) => ({
+    ...category,
+    id: category.id ?? generateId(),
+    createdAt: new Date(now.getTime() - index * 1000 * 60 * 20),
+    updatedAt: category.updatedAt ?? new Date(now.getTime() - index * 1000 * 60 * 15),
+  }));
+
+  const ops = docs.map((doc) => ({
+    updateOne: {
+      filter: { id: doc.id },
+      update: { $set: doc },
+      upsert: true,
+    },
+  }));
+
+  if (!ops.length) return { matchedCount: 0, modifiedCount: 0, upsertedCount: 0 };
+
+  const result = await c.assetCategories.bulkWrite(ops, { ordered: false });
   return {
     matchedCount: result.matchedCount,
     modifiedCount: result.modifiedCount,
