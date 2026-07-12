@@ -178,6 +178,11 @@ export async function initDatabase() {
   await ensureIndex(c.inwardMaster, { batch: 1 });
   await ensureIndex(c.inwardItemDetails, { inwardId: 1 });
 
+  await ensureUniqueIndex(c.assetRequests, { id: 1 });
+  await ensureIndex(c.assetRequests, { requesterId: 1 });
+  await ensureIndex(c.assetRequests, { status: 1 });
+  await ensureIndex(c.assetRequests, { createdAt: -1 });
+
   // Remove any pre-existing complaint serial index before we normalize old rows.
   // Otherwise the cleanup writes can trip the unique constraint before we get a
   // chance to repair the collection.

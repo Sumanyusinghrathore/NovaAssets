@@ -781,6 +781,24 @@ export type SpareRequest = {
   courierDetails?: string;
 };
 
+export type AssetRequestStatus = "Pending" | "Approved" | "Rejected" | "Fulfilled";
+
+export type AssetRequest = {
+  id: string;
+  requesterId: string;
+  requesterName: string;
+  requesterEmail: string;
+  requesterRole: string;
+  itemName: string;
+  category: string;
+  quantity: number;
+  purpose?: string;
+  location?: string;
+  status: AssetRequestStatus;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type ReplacementRequestStatus = "Pending" | "Approved" | "Dispatched" | "Rejected";
 
 export type ReplacementRequest = {

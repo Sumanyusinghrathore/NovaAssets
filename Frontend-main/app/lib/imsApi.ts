@@ -524,6 +524,22 @@ export type NotificationItem = {
   isRead: boolean;
 };
 
+export type AssetRequestItem = {
+  id: string;
+  requesterId: string;
+  requesterName: string;
+  requesterEmail: string;
+  requesterRole: string;
+  itemName: string;
+  category: string;
+  quantity: number;
+  purpose?: string;
+  location?: string;
+  status: "Pending" | "Approved" | "Rejected" | "Fulfilled";
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type EngineerRole = "L1" | "L2" | "L3";
 
 export type EngineerMaster = {
@@ -1452,6 +1468,20 @@ export type RoleConfig = {
 
 export async function listRoles() {
   return apiGet<RoleConfig[]>("/api/roles");
+}
+
+export async function listMyAssetRequests() {
+  return apiGet<AssetRequestItem[]>("/api/asset-requests/mine");
+}
+
+export async function createAssetRequest(input: {
+  itemName: string;
+  category?: string;
+  quantity?: number;
+  purpose?: string;
+  location?: string;
+}) {
+  return apiPost<AssetRequestItem>("/api/asset-requests", input);
 }
 
 export async function createRole(name: string) {

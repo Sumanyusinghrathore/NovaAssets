@@ -22,6 +22,7 @@ import type {
   TicketAssignmentLog,
   SeriesBOM,
   InventoryLog,
+  AssetRequest,
   SpareRequest,
   ReplacementRequest,
   InwardMaster,
@@ -52,6 +53,7 @@ export type Collections = {
   notifications: Collection<Notification>;
   boms: Collection<SeriesBOM>;
   inventoryLogs: Collection<InventoryLog>;
+  assetRequests: Collection<AssetRequest>;
   spareRequests: Collection<SpareRequest>;
   replacementRequests: Collection<ReplacementRequest>;
   inwardMaster: Collection<InwardMaster>;
@@ -83,6 +85,7 @@ export async function getCollections(): Promise<Collections> {
     notifications: db.collection<Notification>("notifications"),
     boms: db.collection<SeriesBOM>("boms"),
     inventoryLogs: db.collection<InventoryLog>("inventoryLogs"),
+    assetRequests: db.collection<AssetRequest>("assetRequests"),
     spareRequests: db.collection<SpareRequest>("spareRequests"),
     replacementRequests: db.collection<ReplacementRequest>("replacementRequests"),
     inwardMaster: db.collection<InwardMaster>("inward_master"),

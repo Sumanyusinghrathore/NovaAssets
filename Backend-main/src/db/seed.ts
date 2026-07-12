@@ -2,7 +2,7 @@ import { getCollections } from "./collections";
 import { db as mockDb } from "./mockDb";
 import { normalizeRole } from "../rbac";
 import { generateId } from "../utils/id";
-import type { Notification } from "../types";
+import type { AssetRequest, Notification } from "../types";
 
 const DEMO_AUTH_EMAILS = new Set([
   "superadmin@oddo.com",
@@ -64,6 +64,54 @@ const DEMO_NOTIFICATIONS: Array<Notification> = [
   },
 ];
 
+const DEMO_ASSET_REQUESTS: Array<AssetRequest> = [
+  {
+    id: "ar-employee-office-chair",
+    requesterId: "u-oddo-employee",
+    requesterName: "Employee User",
+    requesterEmail: "employee@oddo.com",
+    requesterRole: "Dealer",
+    itemName: "Office Chair",
+    category: "Furniture",
+    quantity: 1,
+    purpose: "Ergonomic seating for daily workstation use.",
+    location: "Employee workstation",
+    status: "Approved",
+    createdAt: new Date(Date.now() - 1000 * 60 * 42),
+    updatedAt: new Date(Date.now() - 1000 * 60 * 40),
+  },
+  {
+    id: "ar-employee-cpu",
+    requesterId: "u-oddo-employee",
+    requesterName: "Employee User",
+    requesterEmail: "employee@oddo.com",
+    requesterRole: "Dealer",
+    itemName: "CPU Tower",
+    category: "Electronics",
+    quantity: 1,
+    purpose: "Main desk unit for local work setup.",
+    location: "Employee workstation",
+    status: "Pending",
+    createdAt: new Date(Date.now() - 1000 * 60 * 118),
+    updatedAt: new Date(Date.now() - 1000 * 60 * 118),
+  },
+  {
+    id: "ar-manager-monitor",
+    requesterId: "u-oddo-manager",
+    requesterName: "Manager User",
+    requesterEmail: "manager@oddo.com",
+    requesterRole: "Sales Manager",
+    itemName: "Monitor",
+    category: "Electronics",
+    quantity: 2,
+    purpose: "Dual-screen setup for team coordination.",
+    location: "Manager cabin",
+    status: "Fulfilled",
+    createdAt: new Date(Date.now() - 1000 * 60 * 240),
+    updatedAt: new Date(Date.now() - 1000 * 60 * 180),
+  },
+];
+
 export async function syncDemoAuthUsers() {
   const c = await getCollections();
   const now = new Date();
@@ -113,6 +161,7 @@ export async function seedDatabaseIfEmpty() {
   const initialUsersCount = await c.users.estimatedDocumentCount();
   await syncDemoAuthUsers();
   await syncDemoNotifications();
+  await syncDemoAssetRequests();
 
   const existingUsers = await c.users.find({}, { projection: { email: 1 } }).toArray();
   const existingEmails = new Set(existingUsers.map((u) => String((u as any).email || "").toLowerCase()));
@@ -148,6 +197,34 @@ export async function syncDemoNotifications() {
   if (!ops.length) return { matchedCount: 0, modifiedCount: 0, upsertedCount: 0 };
 
   const result = await c.notifications.bulkWrite(ops, { ordered: false });
+  return {
+    matchedCount: result.matchedCount,
+    modifiedCount: result.modifiedCount,
+    upsertedCount: result.upsertedCount,
+  };
+}
+
+export async function syncDemoAssetRequests() {
+  const c = await getCollections();
+  const now = new Date();
+  const docs = DEMO_ASSET_REQUESTS.map((request, index) => ({
+    ...request,
+    id: request.id ?? generateId(),
+    createdAt: new Date(now.getTime() - index * 1000 * 60 * 15),
+    updatedAt: request.updatedAt ?? new Date(now.getTime() - index * 1000 * 60 * 10),
+  }));
+
+  const ops = docs.map((doc) => ({
+    updateOne: {
+      filter: { id: doc.id },
+      update: { $set: doc },
+      upsert: true,
+    },
+  }));
+
+  if (!ops.length) return { matchedCount: 0, modifiedCount: 0, upsertedCount: 0 };
+
+  const result = await c.assetRequests.bulkWrite(ops, { ordered: false });
   return {
     matchedCount: result.matchedCount,
     modifiedCount: result.modifiedCount,

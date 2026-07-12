@@ -22,6 +22,7 @@ import notificationsRouter from "./routes/notifications";
 import rolesRouter from "./routes/roles";
 import engineerAssignmentsRouter from "./routes/engineerAssignments";
 import geoRouter from "./routes/geo";
+import assetRequestsRouter from "./routes/assetRequests";
 
 const app = express();
 
@@ -97,6 +98,7 @@ app.use("/api/dashboard", dashboardRouter);
 app.use("/api/notifications", notificationsRouter);
 app.use("/api/roles", rolesRouter);
 app.use("/api/engineer-assignments", engineerAssignmentsRouter);
+app.use("/api/asset-requests", assetRequestsRouter);
 app.use("/api/geo", geoRouter);
 
 // 404 fallback

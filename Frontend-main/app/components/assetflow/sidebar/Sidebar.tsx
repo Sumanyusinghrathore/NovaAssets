@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import AssetFlowLogo from "../AssetFlowLogo";
-import { ROLE_LABELS, ROLE_NAV, ROLE_HOME, sectionHref, type AssetFlowRole } from "@/app/lib/assetflow-roles";
+import { ROLE_LABELS, ROLE_NAV, sectionHref, type AssetFlowRole } from "@/app/lib/assetflow-roles";
 
 export default function Sidebar({
   role,
@@ -60,14 +60,6 @@ export default function Sidebar({
           </nav>
         </div>
 
-        <div className="border-t border-slate-200 p-4">
-          <div className="rounded-[1.5rem] bg-[linear-gradient(135deg,rgba(91,61,245,0.12),rgba(255,255,255,0.9))] p-4">
-            <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Next milestone</div>
-            <p className="mt-2 text-sm leading-6 text-slate-600">
-              {ROLE_HOME[role]} is your default landing page after login.
-            </p>
-          </div>
-        </div>
       </aside>
     </>
   );

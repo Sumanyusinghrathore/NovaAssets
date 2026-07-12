@@ -2,7 +2,7 @@ import { connectDatabase } from "../db/connect";
 import { initDatabase } from "../db/init";
 import { getCollections } from "../db/collections";
 import { db as mockDb } from "../db/mockDb";
-import { syncDemoAuthUsers, syncDemoNotifications } from "../db/seed";
+import { syncDemoAssetRequests, syncDemoAuthUsers, syncDemoNotifications } from "../db/seed";
 
 async function main() {
   const db = await connectDatabase();
@@ -19,6 +19,10 @@ async function main() {
   const notificationSync = await syncDemoNotifications();
   console.log(
     `Synced ${notificationSync.upsertedCount + notificationSync.modifiedCount} demo notification(s) into MongoDB.`
+  );
+  const requestSync = await syncDemoAssetRequests();
+  console.log(
+    `Synced ${requestSync.upsertedCount + requestSync.modifiedCount} demo asset request(s) into MongoDB.`
   );
 
   const c = await getCollections();
