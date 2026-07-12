@@ -793,20 +793,20 @@ const S = `
 `;
 
 const ROLES = [
-  { name: "Founder",       desc: "Full system visibility, audit logs, and company-wide controls." },
-  { name: "Admin",         desc: "User management, configurations, and data exports." },
-  { name: "Dept. Head",    desc: "Team assets, booking approvals, and reports." },
+  { name: "Founder", desc: "Full system visibility, audit logs, and company-wide controls." },
+  { name: "Admin", desc: "User management, configurations, and data exports." },
+  { name: "Dept. Head", desc: "Team assets, booking approvals, and reports." },
   { name: "Asset Manager", desc: "Register, allocate, transfer, and audit assets." },
-  { name: "Employee",      desc: "Request assets, book rooms, view own history." },
+  { name: "Employee", desc: "Request assets, book rooms, view own history." },
 ];
 
 const FEATURES = [
   { icon: <IconPackage size={22} />, title: "Asset Lifecycle Control", desc: "Register every company asset — laptops, vehicles, projectors, furniture — with a serial number, category, and current custodian." },
-  { icon: <IconWrench size={22} />,  title: "Bookings & Maintenance",  desc: "Book meeting rooms and shared equipment with conflict detection. Maintenance requests auto-route to the right team." },
-  { icon: <IconChartBar size={22} />,title: "Executive Reporting",     desc: "Leadership-ready dashboards with asset utilisation rates, department-wise cost breakdowns, and audit-ready exports." },
-  { icon: <IconShield size={22} />,  title: "Role-Based Access",       desc: "Every menu, action, and data point is scoped by role. Founders see everything; employees see only what they need." },
-  { icon: <IconBell size={22} />,    title: "Real-Time Notifications", desc: "Instant in-app notifications for approvals, transfers, booking confirmations, and maintenance updates." },
-  { icon: <IconBolt size={22} />,    title: "Audit-Ready Compliance",  desc: "Every action is stamped with the acting user, role, and timestamp. Generate a chain-of-custody report instantly." },
+  { icon: <IconWrench size={22} />, title: "Bookings & Maintenance", desc: "Book meeting rooms and shared equipment with conflict detection. Maintenance requests auto-route to the right team." },
+  { icon: <IconChartBar size={22} />, title: "Executive Reporting", desc: "Leadership-ready dashboards with asset utilisation rates, department-wise cost breakdowns, and audit-ready exports." },
+  { icon: <IconShield size={22} />, title: "Role-Based Access", desc: "Every menu, action, and data point is scoped by role. Founders see everything; employees see only what they need." },
+  { icon: <IconBell size={22} />, title: "Real-Time Notifications", desc: "Instant in-app notifications for approvals, transfers, booking confirmations, and maintenance updates." },
+  { icon: <IconBolt size={22} />, title: "Audit-Ready Compliance", desc: "Every action is stamped with the acting user, role, and timestamp. Generate a chain-of-custody report instantly." },
 ];
 
 const FOOTER_LINKS = {
@@ -953,9 +953,9 @@ export default function HomePage() {
 
       /* ── FEATURES HEADER ──────────────────────────────────────── */
       const featH2 = document.querySelector(".af-features-header h2");
-      const featP  = document.querySelector(".af-features-header p");
+      const featP = document.querySelector(".af-features-header p");
       if (featH2) ScrollTrigger.create({ trigger: featH2, start: "top 85%", onEnter: () => featH2.classList.add("anim-in") });
-      if (featP)  ScrollTrigger.create({ trigger: featP,  start: "top 85%", onEnter: () => featP.classList.add("anim-in") });
+      if (featP) ScrollTrigger.create({ trigger: featP, start: "top 85%", onEnter: () => featP.classList.add("anim-in") });
 
       /* ── FEATURE CARDS STAGGER ────────────────────────────────── */
       const featCards = document.querySelectorAll(".af-feat-card");
@@ -987,9 +987,9 @@ export default function HomePage() {
       });
 
       /* ── CTA SECTION ──────────────────────────────────────────── */
-      const ctaOrb  = document.querySelector(".af-cta-orb");
-      const ctaH2   = document.querySelector(".af-cta h2");
-      const ctaP    = document.querySelector(".af-cta p");
+      const ctaOrb = document.querySelector(".af-cta-orb");
+      const ctaH2 = document.querySelector(".af-cta h2");
+      const ctaP = document.querySelector(".af-cta p");
       const ctaBtns = document.querySelector(".af-cta-btns");
       ScrollTrigger.create({
         trigger: ".af-cta",
@@ -1034,10 +1034,10 @@ export default function HomePage() {
           <div className="af-nav-inner">
             <Link href="/"><AssetFlowLogo size={36} theme={theme} /></Link>
             <nav className="af-nav-links">
-              <a href="#top"      className="af-nav-link">Home</a>
+              <a href="#top" className="af-nav-link">Home</a>
               <a href="#features" className="af-nav-link">Features</a>
-              <a href="#roles"    className="af-nav-link">Roles</a>
-              <a href="#contact"  className="af-nav-link">Contact</a>
+              <a href="#roles" className="af-nav-link">Roles</a>
+              <a href="#contact" className="af-nav-link">Contact</a>
             </nav>
             <div className="af-nav-actions">
               <button
@@ -1050,7 +1050,7 @@ export default function HomePage() {
               >
                 {theme === "light" ? <IconMoon size={18} /> : <IconSun size={18} />}
               </button>
-              <Link href="/login"  className="af-btn-sm-primary">Login</Link>
+              <Link href="/login" className="af-btn-sm-primary">Login</Link>
             </div>
           </div>
         </header>
@@ -1083,10 +1083,10 @@ export default function HomePage() {
 
               <div className="af-hero-kpis">
                 {[
-                  { label: "Asset visibility",   val: "12,480", icon: <IconPackage size={15} /> },
-                  { label: "Teams onboarded",    val: "118",    icon: <IconUsers size={15} /> },
-                  { label: "Maintenance flow",   val: "98.4%",  icon: <IconWrench size={15} /> },
-                  { label: "Executive insights", val: "Live",   icon: <IconChartBar size={15} /> },
+                  { label: "Asset visibility", val: "12,480", icon: <IconPackage size={15} /> },
+                  { label: "Teams onboarded", val: "118", icon: <IconUsers size={15} /> },
+                  { label: "Maintenance flow", val: "98.4%", icon: <IconWrench size={15} /> },
+                  { label: "Executive insights", val: "Live", icon: <IconChartBar size={15} /> },
                 ].map((k) => (
                   <div key={k.label} className="af-kpi-tile">
                     <div className="af-kpi-tile-top">
@@ -1102,7 +1102,13 @@ export default function HomePage() {
             <div className="af-hero-card">
               <div className="af-hcard-header">
                 <span className="af-hcard-eyebrow">Role Aware</span>
-                <div className="af-hcard-av">AF</div>
+                <div className="af-hcard-av">
+                  <img
+                    src="/novaassets_logo.webp"
+                    alt="NovaAssets Logo"
+                    style={{ width: "22px", height: "22px", objectFit: "contain" }}
+                  />
+                </div>
               </div>
               <div className="af-hcard-title">
                 Founder, Admin,<br />Head, Manager,<br />Employee
@@ -1110,9 +1116,9 @@ export default function HomePage() {
               <div className="af-hcard-grid">
                 {[
                   { t: "Public company page", d: "Accessible without login for brand trust and onboarding." },
-                  { t: "Role-based routes",   d: "Dashboard and menus change by login role automatically." },
+                  { t: "Role-based routes", d: "Dashboard and menus change by login role automatically." },
                   { t: "Email / phone login", d: "Password or OTP flow can plug into backend later." },
-                  { t: "Premium UI",          d: "Soft shadows, glass panels, and clean enterprise spacing." },
+                  { t: "Premium UI", d: "Soft shadows, glass panels, and clean enterprise spacing." },
                 ].map((c) => (
                   <div key={c.t} className="af-mini-card">
                     <div className="af-mini-card-title">{c.t}</div>
@@ -1239,7 +1245,7 @@ export default function HomePage() {
                   {/* Phone */}
                   <div className="af-foot-contact-item-centered">
                     <span className="af-foot-contact-icon-centered">
-                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
                     </span>
                     <span>+91 98765 43210</span>
                   </div>
@@ -1247,7 +1253,7 @@ export default function HomePage() {
                   {/* Email */}
                   <div className="af-foot-contact-item-centered">
                     <span className="af-foot-contact-icon-centered">
-                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
                     </span>
                     <a href="mailto:info@example.com">info@example.com</a>
                   </div>
@@ -1276,15 +1282,15 @@ export default function HomePage() {
             <div className="af-foot-social">
               {/* Twitter / X */}
               <a href="#" className="af-foot-social-icon-centered" aria-label="Twitter">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
               </a>
               {/* LinkedIn */}
               <a href="#" className="af-foot-social-icon-centered" aria-label="LinkedIn">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
               </a>
               {/* GitHub */}
               <a href="#" className="af-foot-social-icon-centered" aria-label="GitHub">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
               </a>
             </div>
           </div>

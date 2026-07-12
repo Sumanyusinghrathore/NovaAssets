@@ -41,7 +41,7 @@ export default function WorkspaceShell({
 
   return (
     <div className="flex min-h-screen bg-transparent text-slate-900">
-      <Sidebar role={role} pathname={pathname} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar role={role} pathname={pathname} open={sidebarOpen} onClose={() => setSidebarOpen(false)} onLogout={handleLogout} />
       <div className="flex min-h-screen flex-1 flex-col lg:pl-[300px]">
         <Navbar
           role={role}
