@@ -133,7 +133,37 @@ export async function apiLogin(email: string, password: string): Promise<AuthUse
   const data = await apiRequest<{ token: string; user: AuthUser }>("/api/auth/login", {
     method: "POST",
     auth: false,
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ identifier: email, password }),
+  });
+  setAuthToken(data.token);
+  return data.user;
+}
+
+export async function apiSendOtp(input: { identifier: string; role?: string }): Promise<{
+  challengeId: string;
+  identifier: string;
+  role?: string;
+  otp: string;
+  expiresAt: string;
+  message: string;
+}> {
+  return apiRequest("/api/auth/otp/send", {
+    method: "POST",
+    auth: false,
+    body: JSON.stringify(input),
+  });
+}
+
+export async function apiVerifyOtp(input: {
+  identifier: string;
+  role?: string;
+  challengeId: string;
+  otp: string;
+}): Promise<AuthUser> {
+  const data = await apiRequest<{ token: string; user: AuthUser }>("/api/auth/otp/verify", {
+    method: "POST",
+    auth: false,
+    body: JSON.stringify(input),
   });
   setAuthToken(data.token);
   return data.user;
