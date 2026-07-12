@@ -65,6 +65,9 @@ export const ROLE_HOME: Record<AssetFlowRole, string> = {
 };
 
 export const ROLE_NAV: Record<AssetFlowRole, RoleNavItem[]> = {
+  // The Founder / Super Admin is the system's top-level administrator. Keep the
+  // complete organization and governance flow available here; lower roles are
+  // still constrained to their own operational responsibilities below.
   founder: [
     { label: "Dashboard", slug: "dashboard", icon: IconDashboard },
     { label: "Organization", slug: "organization", icon: IconBriefcase, group: "Core" },
@@ -78,6 +81,7 @@ export const ROLE_NAV: Record<AssetFlowRole, RoleNavItem[]> = {
     { label: "Audit", slug: "audit", icon: IconCoins, group: "Operations" },
     { label: "Reports", slug: "reports", icon: IconChartBar, group: "Insights" },
     { label: "Analytics", slug: "analytics", icon: IconChartBar, group: "Insights" },
+    { label: "Notifications", slug: "notifications", icon: IconBell, group: "Operations" },
     { label: "Settings", slug: "settings", icon: IconCog, group: "System" },
   ],
   admin: [
@@ -139,6 +143,7 @@ export const ROLE_ALLOWED_SECTIONS: Record<AssetFlowRole, AssetFlowSection[]> = 
     "audit",
     "reports",
     "analytics",
+    "notifications",
     "settings",
   ],
   admin: [

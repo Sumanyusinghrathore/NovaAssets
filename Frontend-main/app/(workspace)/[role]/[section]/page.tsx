@@ -65,7 +65,12 @@ export default async function RoleSectionPage({
 
   if ((activeRole === "founder" || activeRole === "admin") && ["dashboard", "organization", "departments", "employees", "roles-permissions", "notifications"].includes(activeSection)) {
     const titles: Record<AssetFlowSection, { title: string; subtitle: string }> = {
-      dashboard: { title: "Organization Overview", subtitle: "Live MongoDB snapshot for founders and admins." },
+      dashboard: {
+        title: "Organization Overview",
+        subtitle: activeRole === "founder"
+          ? "Organization-wide visibility and governance for the Founder / Super Admin."
+          : "Live MongoDB snapshot for admins.",
+      },
       organization: { title: "Organization", subtitle: "Company structure, hierarchy, and live team records from MongoDB." },
       departments: { title: "Departments", subtitle: "Role-based department buckets pulled from live user data." },
       employees: { title: "Employees", subtitle: "Live employee roster stored in MongoDB." },
