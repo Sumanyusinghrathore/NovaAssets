@@ -649,6 +649,31 @@ export default function HomePage() {
   useEffect(() => {
     let lenis: any;
     let gsapModule: any;
+    let rafId: number;
+    const clickedLinks: HTMLAnchorElement[] = [];
+
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.currentTarget as HTMLAnchorElement;
+      const href = target.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        e.preventDefault();
+        const targetEl = document.querySelector(href);
+        if (!targetEl) return;
+
+        if (lenis) {
+          lenis.scrollTo(targetEl, { duration: 1.2 });
+        } else {
+          targetEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+
+    // Attach click listeners immediately (synchronously) to prevent initial race conditions
+    const links = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
+    links.forEach((link) => {
+      link.addEventListener("click", handleAnchorClick as EventListener);
+      clickedLinks.push(link);
+    });
 
     async function init() {
       const [{ default: Lenis }, { gsap }, { ScrollTrigger }] = await Promise.all([
@@ -664,8 +689,12 @@ export default function HomePage() {
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
       lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add((time: number) => lenis.raf(time * 1000));
-      gsap.ticker.lagSmoothing(0);
+
+      function raf(time: number) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+      rafId = requestAnimationFrame(raf);
 
       /* ── NAV SLIDE IN ─────────────────────────────────────────── */
       setTimeout(() => {
@@ -782,6 +811,10 @@ export default function HomePage() {
 
     return () => {
       if (lenis) lenis.destroy();
+      if (rafId) cancelAnimationFrame(rafId);
+      clickedLinks.forEach((link) => {
+        link.removeEventListener("click", handleAnchorClick as EventListener);
+      });
       import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => ScrollTrigger.getAll().forEach((t: any) => t.kill()));
     };
   }, []);

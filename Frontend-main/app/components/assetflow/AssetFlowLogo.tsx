@@ -19,6 +19,7 @@ export default function AssetFlowLogo({
         height={size}
         priority
         className="object-contain"
+        style={{ width: "auto", height: "auto" }}
       />
 
       {/* Company Name */}
