@@ -448,12 +448,129 @@ const S = `
   .af-cta-note a { color: #a78bfa; text-decoration: underline; text-underline-offset: 2px; }
 
   /* ── FOOTER ───────────────────────────────────────────────────── */
-  .af-foot { border-top: 1px solid rgba(148,163,184,0.16); background: white; }
-  .af-foot-inner { max-width: 1280px; margin: 0 auto; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .af-foot-copy { font-size: 12.5px; color: #94a3b8; }
-  .af-foot-links { display: flex; gap: 20px; }
-  .af-foot-link { font-size: 12.5px; font-weight: 500; color: #94a3b8; text-decoration: none; transition: color 0.15s; }
-  .af-foot-link:hover { color: #5b3df5; }
+  .af-foot {
+    background: linear-gradient(180deg, #1e1b4b 0%, #0f0a2e 100%);
+    color: #e2e8f0;
+  }
+  .af-foot-main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 28px 40px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 36px;
+  }
+  .af-foot-col-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  .af-foot-col-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 28px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: #5b3df5;
+  }
+  .af-foot-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; }
+  .af-foot-links-list a {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.18s, padding-left 0.18s;
+  }
+  .af-foot-links-list a:hover { color: #a78bfa; padding-left: 4px; }
+
+  /* Contact blocks */
+  .af-foot-contact-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .af-foot-contact-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: rgba(91,61,245,0.15);
+    border: 1px solid rgba(91,61,245,0.25);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: #a78bfa;
+  }
+  .af-foot-contact-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75); }
+  .af-foot-contact-text { font-size: 11.5px; color: rgba(255,255,255,0.42); line-height: 1.5; margin-top: 2px; }
+  .af-foot-contact-text a { color: #a78bfa; text-decoration: none; transition: color 0.15s; }
+  .af-foot-contact-text a:hover { color: #c4b5fd; }
+
+  /* Social icons */
+  .af-foot-social { display: flex; gap: 8px; margin-top: 6px; }
+  .af-foot-social-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: all 0.22s;
+  }
+  .af-foot-social-icon:hover {
+    background: #5b3df5;
+    border-color: #5b3df5;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(91,61,245,0.35);
+  }
+
+  /* Bottom legal bar */
+  .af-foot-legal-bar {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    background: rgba(0,0,0,0.15);
+  }
+  .af-foot-legal-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 28px;
+    text-align: center;
+  }
+  .af-foot-legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px 2px;
+    margin-bottom: 10px;
+  }
+  .af-foot-legal-links a {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: color 0.15s;
+    padding: 0 6px;
+  }
+  .af-foot-legal-links a:hover { color: #a78bfa; }
+  .af-foot-legal-sep { font-size: 11px; color: rgba(255,255,255,0.15); user-select: none; }
+  .af-foot-copyright {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.25);
+  }
+  .af-foot-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
 
   /* ── SCROLL REVEAL BASE ───────────────────────────────────────── */
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -466,12 +583,17 @@ const S = `
     .af-feat-grid { grid-template-columns: repeat(2, 1fr); }
     .af-roles-grid { grid-template-columns: repeat(3, 1fr); }
     .af-hero-kpis { grid-template-columns: repeat(2, 1fr); }
+    .af-foot-main { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 640px) {
     .af-nav-links { display: none; }
     .af-feat-grid { grid-template-columns: 1fr; }
     .af-roles-grid { grid-template-columns: repeat(2, 1fr); }
     .af-hero h1 { letter-spacing: -0.8px; }
+    .af-foot-main { grid-template-columns: 1fr 1fr; gap: 28px; }
+  }
+  @media (max-width: 420px) {
+    .af-foot-main { grid-template-columns: 1fr; }
   }
 `;
 
@@ -491,6 +613,35 @@ const FEATURES = [
   { icon: <IconBell size={22} />,    title: "Real-Time Notifications", desc: "Instant in-app notifications for approvals, transfers, booking confirmations, and maintenance updates." },
   { icon: <IconBolt size={22} />,    title: "Audit-Ready Compliance",  desc: "Every action is stamped with the acting user, role, and timestamp. Generate a chain-of-custody report instantly." },
 ];
+
+const FOOTER_LINKS = {
+  solutions: [
+    "Core financials",
+    "Supply Chain Management",
+    "Billing management",
+    "People and payroll operations",
+    "Spend management",
+    "Omnichannel commerce",
+  ],
+  verticals: ["Manufacturing", "Distribution", "Retail", "Non-profits"],
+  quickLinks: [
+    { label: "Pricing", href: "#" },
+    { label: "AI in ERP", href: "#" },
+    { label: "All features", href: "#features" },
+    { label: "Taxes and filing", href: "#" },
+    { label: "Payments", href: "#" },
+  ],
+  resources: [
+    "Help document",
+    "Quick access guides",
+    "API Documentation",
+  ],
+  legal: [
+    "Contact", "Security", "Compliance", "IPR Complaints",
+    "Anti-spam Policy", "Terms of Service", "Privacy Policy",
+    "Trademark Policy", "GDPR Compliance", "Abuse Policy",
+  ],
+};
 
 export default function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -797,14 +948,108 @@ export default function HomePage() {
           </div>
         </section>
 
-        
+        {/* ── FOOTER ────────────────────────────────────────────── */}
         <footer className="af-foot">
-          <div className="af-foot-inner">
-            <AssetFlowLogo size={32} />
-            <span className="af-foot-copy">© 2025 AssetFlow. Enterprise Asset Management.</span>
-            <div className="af-foot-links">
-              <Link href="/login"  className="af-foot-link">Login</Link>
-              <Link href="/signup" className="af-foot-link">Signup</Link>
+          <div className="af-foot-main">
+
+            {/* Brand row spans full width on mobile via CSS */}
+            <div style={{ gridColumn: "1 / -1" }}>
+              <div className="af-foot-brand-row">
+                <div
+                  className="flex items-center justify-center rounded-[0.85rem] text-white shadow-[0_12px_30px_rgba(91,61,245,0.3)]"
+                  style={{ width: 40, height: 40, background: "linear-gradient(135deg,#5b3df5,#7c6af7)" }}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 900, letterSpacing: "0.04em" }}>NA</span>
+                </div>
+                <div style={{ lineHeight: 1.2 }}>
+                  <div style={{ fontSize: 15, fontWeight: 900, letterSpacing: "0.16em", color: "rgba(255,255,255,0.85)" }}>NOVAASSETS</div>
+                  <div style={{ fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.35)" }}>Enterprise Assets</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 1 — SOLUTIONS */}
+            <div>
+              <h3 className="af-foot-col-title">Solutions</h3>
+              <ul className="af-foot-links-list">
+                {FOOTER_LINKS.solutions.map((item) => (
+                  <li key={item}><a href="#">{item}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 2 — VERTICALS */}
+            <div>
+              <h3 className="af-foot-col-title">Verticals</h3>
+              <ul className="af-foot-links-list">
+                {FOOTER_LINKS.verticals.map((item) => (
+                  <li key={item}><a href="#">{item}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3 — QUICK LINKS */}
+            <div>
+              <h3 className="af-foot-col-title">Quick Links</h3>
+              <ul className="af-foot-links-list">
+                {FOOTER_LINKS.quickLinks.map((item) => (
+                  <li key={item.label}><a href={item.href}>{item.label}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 4 — RESOURCES */}
+            <div>
+              <h3 className="af-foot-col-title">Resources</h3>
+              <ul className="af-foot-links-list">
+                {FOOTER_LINKS.resources.map((item) => (
+                  <li key={item}><a href="#">{item}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 5 — CONTACT US / FOLLOW US */}
+            <div>
+              <h3 className="af-foot-col-title">Contact</h3>
+
+              {/* Phone */}
+              <div className="af-foot-contact-block">
+                <div className="af-foot-contact-icon">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                </div>
+                <div>
+                  <div className="af-foot-contact-text">Contact : – <strong style={{ color: "rgba(255,255,255,0.7)" }}>+91 98765 43210</strong></div>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="af-foot-contact-block">
+                <div className="af-foot-contact-icon">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                </div>
+                <div>
+                  <div className="af-foot-contact-label">Email us</div>
+                  <div className="af-foot-contact-text"><a href="mailto:info@example.com">info@example.com</a></div>
+                </div>
+              </div>
+
+              {/* Follow Us */}
+             
+            </div>
+          </div>
+
+          {/* ── BOTTOM LEGAL BAR ──────────────────────────────────── */}
+          <div className="af-foot-legal-bar">
+            <div className="af-foot-legal-inner">
+              <nav className="af-foot-legal-links" aria-label="Legal links">
+                {FOOTER_LINKS.legal.map((item, i) => (
+                  <span key={item}>
+                    {i > 0 && <span className="af-foot-legal-sep">|</span>}
+                    <a href="#">{item}</a>
+                  </span>
+                ))}
+              </nav>
+              <p className="af-foot-copyright">© 2026, NovaAssets Corporation Pvt. Ltd. All Rights Reserved.</p>
             </div>
           </div>
         </footer>
