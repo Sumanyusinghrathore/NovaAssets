@@ -27,6 +27,7 @@ export default function NovaAssetsFooter() {
         <div className="footer-col">
           <h4>Useful Links</h4>
           <Link href="/">Home</Link>
+          <Link href="/platform">Platform</Link>
           <button type="button">Career</button>
           <Link href="/contact">Contact Us</Link>
           <button type="button">Privacy Policy</button>

@@ -48,6 +48,7 @@ export default function NovaAssetsNavbar() {
 
   const activeHome = pathname === "/";
   const activeAbout = pathname === "/about";
+  const activePlatform = pathname === "/platform";
   const activeProducts = isProductsPath(pathname);
   const activeContact = pathname === "/contact";
   const activeSupport = pathname === "/support";
@@ -113,12 +114,19 @@ export default function NovaAssetsNavbar() {
             >
               Home
             </Link>
-            <Link
+             <Link
               className={`nav-link ${activeAbout ? "nav-link--active" : ""}`}
               href="/about"
               onClick={closeAllMenus}
             >
               About Us
+            </Link>
+            <Link
+              className={`nav-link ${activePlatform ? "nav-link--active" : ""}`}
+              href="/platform"
+              onClick={closeAllMenus}
+            >
+              Platform
             </Link>
 
             <div className="nav-dropdown">
