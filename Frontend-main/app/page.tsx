@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import AssetFlowLogo from "@/app/components/assetflow/AssetFlowLogo";
 import {
   IconArrowUpRight,
@@ -12,6 +12,8 @@ import {
   IconShield,
   IconBell,
   IconBolt,
+  IconMoon,
+  IconSun,
 } from "@/app/components/icons/Icons";
 
 const S = `
@@ -20,6 +22,7 @@ const S = `
   .af-plat {
     font-family: var(--font-inter, 'Inter', 'Segoe UI', system-ui, sans-serif);
     min-height: 100vh;
+    padding-top: 64px;
     background: #f8fafc;
     color: #0f172a;
     overflow-x: hidden;
@@ -27,8 +30,8 @@ const S = `
 
   /* ── NAV ─────────────────────────────────────────────────────── */
   .af-nav {
-    position: sticky;
-    top: 0;
+    position: fixed;
+    inset: 0 0 auto;
     z-index: 50;
     border-bottom: 1px solid rgba(148,163,184,0.18);
     background: rgba(248,250,252,0.88);
@@ -606,6 +609,41 @@ const S = `
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.anim-in { opacity: 1; transform: translateY(0); }
 
+  /* Homepage theme control lives with the header actions. */
+  .af-theme-toggle {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(148,163,184,0.3);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    color: #475569;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.16);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .af-theme-toggle:hover { transform: translateY(-2px); border-color: #5b3df5; color: #5b3df5; }
+  .af-theme-toggle:focus-visible { outline: 2px solid #5b3df5; outline-offset: 3px; }
+
+  /* Dark mode is intentionally scoped to the public homepage so workspace styling is unchanged. */
+  .af-plat.is-dark { background: #0b1120; color: #e2e8f0; }
+  .af-plat.is-dark .af-nav { border-bottom-color: rgba(148,163,184,0.16); background: rgba(11,17,32,0.88); }
+  .af-plat.is-dark .af-nav-link { color: #94a3b8; }
+  .af-plat.is-dark .af-nav-link:hover { color: #a78bfa; }
+  .af-plat.is-dark .af-hero { background: linear-gradient(180deg, #141b35 0%, #10182e 40%, #0b1120 100%); }
+  .af-plat.is-dark .af-hero-gfx { background: radial-gradient(ellipse 900px 600px at 72% -5%, rgba(124,106,247,0.24), transparent), radial-gradient(ellipse 600px 400px at 5% 90%, rgba(99,102,241,0.16), transparent); }
+  .af-plat.is-dark .af-hero h1, .af-plat.is-dark .af-features-header h2, .af-plat.is-dark .af-roles-header h2 { color: #f8fafc; }
+  .af-plat.is-dark .af-hero-sub, .af-plat.is-dark .af-features-header p, .af-plat.is-dark .af-roles-header p { color: #aab7cd; }
+  .af-plat.is-dark .af-hero-badge, .af-plat.is-dark .af-kpi-tile, .af-plat.is-dark .af-feat-card, .af-plat.is-dark .af-role-card { background: rgba(20,29,51,0.9); border-color: rgba(148,163,184,0.18); }
+  .af-plat.is-dark .af-kpi-tile-label, .af-plat.is-dark .af-feat-card p, .af-plat.is-dark .af-role-desc { color: #aab7cd; }
+  .af-plat.is-dark .af-kpi-val, .af-plat.is-dark .af-feat-card h3, .af-plat.is-dark .af-role-name { color: #f1f5f9; }
+  .af-plat.is-dark .af-roles-wrap { background: #10182e; border-color: rgba(148,163,184,0.14); }
+  .af-plat.is-dark .af-roles-grid { background: #0b1120; border-color: rgba(148,163,184,0.16); }
+  .af-plat.is-dark .af-theme-toggle { background: rgba(20,29,51,0.96); color: #f8fafc; border-color: rgba(167,139,250,0.45); }
+
   @media (max-width: 1024px) {
     .af-hero-inner { grid-template-columns: 1fr; gap: 40px; }
     .af-hero-card { border-radius: 24px; }
@@ -670,6 +708,16 @@ const FOOTER_LINKS = {
 
 export default function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("novaassets-home-theme");
+    if (savedTheme === "dark") setTheme("dark");
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("novaassets-home-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     let lenis: any;
@@ -848,11 +896,11 @@ export default function HomePage() {
     <>
       <style dangerouslySetInnerHTML={{ __html: S }} />
 
-      <div id="top" className="af-plat" ref={pageRef}>
+      <div id="top" className={`af-plat ${theme === "dark" ? "is-dark" : ""}`} ref={pageRef}>
         {/* ── NAV ───────────────────────────────────────────────── */}
         <header className="af-nav">
           <div className="af-nav-inner">
-            <Link href="/"><AssetFlowLogo size={36} /></Link>
+            <Link href="/"><AssetFlowLogo size={36} theme={theme} /></Link>
             <nav className="af-nav-links">
               <a href="#top"      className="af-nav-link">Home</a>
               <a href="#features" className="af-nav-link">Features</a>
@@ -860,6 +908,16 @@ export default function HomePage() {
               <a href="#contact"  className="af-nav-link">Contact</a>
             </nav>
             <div className="af-nav-actions">
+              <button
+                type="button"
+                className="af-theme-toggle"
+                onClick={() => setTheme((current) => current === "light" ? "dark" : "light")}
+                aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+                aria-pressed={theme === "dark"}
+                title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+              >
+                {theme === "light" ? <IconMoon size={18} /> : <IconSun size={18} />}
+              </button>
               <Link href="/login"  className="af-btn-sm-primary">Login</Link>
             </div>
           </div>

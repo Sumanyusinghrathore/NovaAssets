@@ -3,11 +3,13 @@ import Image from "next/image";
 type AssetFlowLogoProps = {
   size?: number;
   compact?: boolean;
+  theme?: "light" | "dark";
 };
 
 export default function AssetFlowLogo({
   size = 44,
   compact = false,
+  theme = "light",
 }: AssetFlowLogoProps) {
   return (
     <div className="flex items-center gap-3">
@@ -25,10 +27,10 @@ export default function AssetFlowLogo({
       {/* Company Name */}
       {!compact && (
         <div className="leading-tight">
-          <h1 className="text-base font-black tracking-[0.16em] text-slate-900">
+          <h1 className={`text-base font-black tracking-[0.16em] ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
             NOVAASSETS
           </h1>
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">
+          <p className={`text-[11px] font-medium uppercase tracking-[0.28em] ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
             Enterprise Assets
           </p>
         </div>
