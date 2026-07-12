@@ -436,110 +436,143 @@ const S = `
     box-shadow: 0 18px 48px rgba(91,61,245,0.35);
   }
   .af-btn-cta:hover { filter: brightness(1.1); transform: translateY(-2px); }
-  .af-btn-cta-ghost {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: transparent; color: rgba(255,255,255,0.7);
-    border: 1.5px solid rgba(255,255,255,0.16);
-    border-radius: 14px; padding: 14px 28px; font-size: 15px; font-weight: 600;
-    text-decoration: none; transition: all 0.2s;
-  }
-  .af-btn-cta-ghost:hover { border-color: #a78bfa; color: #a78bfa; }
   .af-cta-note { font-size: 12.5px; color: rgba(255,255,255,0.3); }
   .af-cta-note a { color: #a78bfa; text-decoration: underline; text-underline-offset: 2px; }
 
   /* ── FOOTER ───────────────────────────────────────────────────── */
   .af-foot {
-    background: linear-gradient(180deg, #1e1b4b 0%, #0f0a2e 100%);
-    color: #e2e8f0;
+    background: linear-gradient(180deg, #09061c 0%, #03020c 100%);
+    color: rgba(255, 255, 255, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
   .af-foot-main {
-    max-width: 1280px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 56px 28px 40px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 36px;
+    padding: 72px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 48px;
   }
-  .af-foot-col-title {
+  .af-foot-brand-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .af-foot-brand-title {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+  .af-foot-brand-subtitle {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 2px;
+  }
+  .af-foot-grid-centered {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 80px;
+    width: 100%;
+  }
+  .af-foot-col-centered {
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .af-foot-col-title-centered {
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1.6px;
+    letter-spacing: 1.8px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 22px;
     position: relative;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
   }
-  .af-foot-col-title::after {
+  .af-foot-col-title-centered::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
     height: 2.5px;
-    border-radius: 2px;
     background: #5b3df5;
+    border-radius: 1px;
   }
-  .af-foot-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; }
-  .af-foot-links-list a {
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.55);
-    text-decoration: none;
-    transition: color 0.18s, padding-left 0.18s;
-  }
-  .af-foot-links-list a:hover { color: #a78bfa; padding-left: 4px; }
-
-  /* Contact blocks */
-  .af-foot-contact-block {
+  .af-foot-links-list-centered {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 14px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
-  .af-foot-contact-icon {
-    width: 34px; height: 34px;
-    border-radius: 10px;
-    background: rgba(91,61,245,0.15);
-    border: 1px solid rgba(91,61,245,0.25);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+  .af-foot-links-list-centered a {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.18s, transform 0.18s;
+  }
+  .af-foot-links-list-centered a:hover {
+    color: #a78bfa;
+    transform: translateY(-1px);
+  }
+  .af-foot-contact-list-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .af-foot-contact-item-centered {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .af-foot-contact-item-centered a {
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+  .af-foot-contact-item-centered a:hover {
     color: #a78bfa;
   }
-  .af-foot-contact-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75); }
-  .af-foot-contact-text { font-size: 11.5px; color: rgba(255,255,255,0.42); line-height: 1.5; margin-top: 2px; }
-  .af-foot-contact-text a { color: #a78bfa; text-decoration: none; transition: color 0.15s; }
-  .af-foot-contact-text a:hover { color: #c4b5fd; }
-
-  /* Social icons */
-  .af-foot-social { display: flex; gap: 8px; margin-top: 6px; }
-  .af-foot-social-icon {
-    width: 34px; height: 34px;
+  .af-foot-contact-icon-centered {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
     border-radius: 10px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.45);
-    text-decoration: none;
-    transition: all 0.22s;
+    background: rgba(91, 61, 245, 0.15);
+    border: 1px solid rgba(91, 61, 245, 0.25);
+    color: #a78bfa;
+    flex-shrink: 0;
   }
-  .af-foot-social-icon:hover {
-    background: #5b3df5;
-    border-color: #5b3df5;
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(91,61,245,0.35);
-  }
-
-  /* Bottom legal bar */
   .af-foot-legal-bar {
-    border-top: 1px solid rgba(255,255,255,0.07);
-    background: rgba(0,0,0,0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.25);
+    width: 100%;
   }
   .af-foot-legal-inner {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 20px 28px;
+    padding: 24px;
     text-align: center;
   }
   .af-foot-legal-links {
@@ -547,29 +580,26 @@ const S = `
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 4px 2px;
-    margin-bottom: 10px;
+    gap: 6px 12px;
+    margin-bottom: 12px;
   }
   .af-foot-legal-links a {
     font-size: 11px;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255, 255, 255, 0.35);
     text-decoration: none;
     transition: color 0.15s;
-    padding: 0 6px;
   }
-  .af-foot-legal-links a:hover { color: #a78bfa; }
-  .af-foot-legal-sep { font-size: 11px; color: rgba(255,255,255,0.15); user-select: none; }
+  .af-foot-legal-links a:hover {
+    color: #a78bfa;
+  }
+  .af-foot-legal-sep {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.15);
+    user-select: none;
+  }
   .af-foot-copyright {
-    font-size: 11.5px;
-    color: rgba(255,255,255,0.25);
-  }
-  .af-foot-brand-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 36px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.25);
   }
 
   /* ── SCROLL REVEAL BASE ───────────────────────────────────────── */
@@ -583,17 +613,12 @@ const S = `
     .af-feat-grid { grid-template-columns: repeat(2, 1fr); }
     .af-roles-grid { grid-template-columns: repeat(3, 1fr); }
     .af-hero-kpis { grid-template-columns: repeat(2, 1fr); }
-    .af-foot-main { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 640px) {
     .af-nav-links { display: none; }
     .af-feat-grid { grid-template-columns: 1fr; }
     .af-roles-grid { grid-template-columns: repeat(2, 1fr); }
     .af-hero h1 { letter-spacing: -0.8px; }
-    .af-foot-main { grid-template-columns: 1fr 1fr; gap: 28px; }
-  }
-  @media (max-width: 420px) {
-    .af-foot-main { grid-template-columns: 1fr; }
   }
 `;
 
@@ -835,7 +860,6 @@ export default function HomePage() {
               <a href="#contact"  className="af-nav-link">Contact</a>
             </nav>
             <div className="af-nav-actions">
-              <Link href="/signup" className="af-btn-sm-ghost">Company setup</Link>
               <Link href="/login"  className="af-btn-sm-primary">Login</Link>
             </div>
           </div>
@@ -864,9 +888,6 @@ export default function HomePage() {
               <div className="af-hero-actions">
                 <Link href="/login" className="af-btn-primary">
                   Enter workspace <IconArrowUpRight size={16} />
-                </Link>
-                <Link href="/signup" className="af-btn-outline">
-                  Setup company
                 </Link>
               </div>
 
@@ -972,11 +993,8 @@ export default function HomePage() {
               and start tracking every asset from day one.
             </p>
             <div className="af-cta-btns">
-              <Link href="/login"  className="af-btn-cta">Enter workspace <IconArrowUpRight size={16} /></Link>
-              <Link href="/signup" className="af-btn-cta-ghost">Setup company</Link>
             </div>
             <p className="af-cta-note" id="contact">
-              Questions? <Link href="/">Contact your account manager</Link>
             </p>
           </div>
         </section>
@@ -984,67 +1002,52 @@ export default function HomePage() {
         {/* ── FOOTER ────────────────────────────────────────────── */}
         <footer className="af-foot">
           <div className="af-foot-main">
-
-            {/* Brand row spans full width on mobile via CSS */}
-            <div style={{ gridColumn: "1 / -1" }}>
-              <div className="af-foot-brand-row">
-                <div
-                  className="flex items-center justify-center rounded-[0.85rem] text-white shadow-[0_12px_30px_rgba(91,61,245,0.3)]"
-                  style={{ width: 40, height: 40, background: "linear-gradient(135deg,#5b3df5,#7c6af7)" }}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 900, letterSpacing: "0.04em" }}>NA</span>
-                </div>
-                <div style={{ lineHeight: 1.2 }}>
-                  <div style={{ fontSize: 15, fontWeight: 900, letterSpacing: "0.16em", color: "rgba(255,255,255,0.85)" }}>NOVAASSETS</div>
-                  <div style={{ fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.35)" }}>Enterprise Assets</div>
-                </div>
+            {/* Centered Brand Row */}
+            <div className="af-foot-brand-centered">
+              <img
+                src="/novaassets_logo.webp"
+                alt="NovaAssets"
+                style={{ height: 42, width: "auto", display: "block" }}
+              />
+              <div>
+                <div className="af-foot-brand-title">NOVAASSETS</div>
+                <div className="af-foot-brand-subtitle">Enterprise Assets</div>
               </div>
             </div>
 
-            
-            
-
-            <div>
-              <h3 className="af-foot-col-title">Resources</h3>
-              <ul className="af-foot-links-list">
-                {FOOTER_LINKS.resources.map((item) => (
-                  <li key={item}><a href="#">{item}</a></li>
-                ))}
-              </ul>
-            </div>
-
-            
-
-            {/* Column 4 — RESOURCES */}
-            
-
-            {/* Column 5 — CONTACT US / FOLLOW US */}
-            <div>
-              <h3 className="af-foot-col-title">Contact</h3>
-
-              {/* Phone */}
-              <div className="af-foot-contact-block">
-                <div className="af-foot-contact-icon">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
-                </div>
-                <div>
-                  <div className="af-foot-contact-text">Contact : – <strong style={{ color: "rgba(255,255,255,0.7)" }}>+91 98765 43210</strong></div>
-                </div>
+            {/* Grid for Resources and Contact */}
+            <div className="af-foot-grid-centered">
+              {/* Resources Column */}
+              <div className="af-foot-col-centered">
+                <h3 className="af-foot-col-title-centered">Resources</h3>
+                <ul className="af-foot-links-list-centered">
+                  {FOOTER_LINKS.resources.map((item) => (
+                    <li key={item}><a href="#">{item}</a></li>
+                  ))}
+                </ul>
               </div>
 
-              {/* Email */}
-              <div className="af-foot-contact-block">
-                <div className="af-foot-contact-icon">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-                </div>
-                <div>
-                  <div className="af-foot-contact-label">Email us</div>
-                  <div className="af-foot-contact-text"><a href="mailto:info@example.com">info@example.com</a></div>
+              {/* Contact Column */}
+              <div className="af-foot-col-centered">
+                <h3 className="af-foot-col-title-centered">Contact</h3>
+                <div className="af-foot-contact-list-centered">
+                  {/* Phone */}
+                  <div className="af-foot-contact-item-centered">
+                    <span className="af-foot-contact-icon-centered">
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                    </span>
+                    <span>+91 98765 43210</span>
+                  </div>
+
+                  {/* Email */}
+                  <div className="af-foot-contact-item-centered">
+                    <span className="af-foot-contact-icon-centered">
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                    </span>
+                    <a href="mailto:info@example.com">info@example.com</a>
+                  </div>
                 </div>
               </div>
-
-              {/* Follow Us */}
-             
             </div>
           </div>
 
